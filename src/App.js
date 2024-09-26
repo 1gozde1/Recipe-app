@@ -1,19 +1,13 @@
-import React, { useState, useEffect } from 'react';
 import { SearchBar } from './modules/recipes/search-bar';
-import { fetchRecipesByIngredient, fetchRecipeDetailsById } from './modules/recipes/recipeService';
+import { fetchRecipeDetailsById } from './modules/recipes/recipeService';
 import './App.css';
 import { RecipeList } from './modules/recipes/recipe-list/RecipeList';
 import { RecipeDetail } from './modules/recipes/recipe-detail/RecipeDetail.js'; 
+import { AppRouter } from './AppRouter.js';
+import { useState } from 'react';
 
-export const App = () => {
-    const [recipes, setRecipes] = useState([]);
-    const [selectedRecipe, setSelectedRecipe] = useState(null); 
-
-    useEffect(() => {
-        fetchRecipesByIngredient('chicken_breast').then((recipes) =>
-            setRecipes(recipes.length > 0 ? recipes : []),
-        );
-    }, []);
+export const App = ({ recipes, onRecipeClick }) => {
+    const [selectedRecipe, setSelectedRecipe] = useState(null);
 
     const handleRecipeClick = async (idMeal) => {
         const details = await fetchRecipeDetailsById(idMeal);
@@ -22,14 +16,15 @@ export const App = () => {
 
     return (
         <div className='container'>
-            <header>Recipe Search App</header>
+            <header className='header'> Recipe Search App</header>
+            <AppRouter />
             <SearchBar />
             {recipes.length > 0 ? (
                 <RecipeList recipes={recipes} onRecipeClick={handleRecipeClick} />
             ) : (
                 <></>
             )}
-            {selectedRecipe && <RecipeDetail recipe={selectedRecipe} />} {/* Detaylı tarif bileşenini göster */}
+            {selectedRecipe && <RecipeDetail recipe={selectedRecipe} />} 
         </div>
     );
 };

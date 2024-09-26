@@ -1,18 +1,21 @@
+import { fetchData } from '../../utils';
+
+export const BD_BASE_URL = 'https://www.themealdb.com/api/json/v1/1/';
 
 export async function fetchRecipesByIngredient(idMeal) {
-    const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idMeal}`);
-    const data = await response.json();
-    return data;
+    const data = await fetchData(`${BD_BASE_URL}/filter.php?i=`, idMeal);
+    return data.meals;
   }  
 
+  export async function searchRecipesByName (idMeal) {
+    
+    const data = await fetchData(`${BD_BASE_URL}/search.php?s=`, idMeal);
+    return data.meals;
+  } 
+
+
 export async function fetchRecipeDetailsById(idMeal) {
-    const response = await fetch(
-        `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idMeal}`,
-    );
-    if (!response.ok) {
-        throw Error('An error occurred when fetching recipe details.');
-    }
-    const data = await response.json();
+    const data = await fetchData(`${BD_BASE_URL}/lookup.php?i=`, idMeal);
     const meal = data.meals[0];
 
     return {
