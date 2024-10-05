@@ -1,9 +1,10 @@
 import { useEffect } from 'react';
 import { useRecipes, useRecipesDispatch, RECIPE_ACTIONS } from '../RecipesProvider';
 import { fetchRecipesByIngredient } from '../recipeService';
-import './RecipeList.css';
 
-export const RecipeList = () => {
+
+
+export const FeaturedRecipes = () => {
     const recipes = useRecipes();
     const dispatch = useRecipesDispatch();
 
@@ -12,6 +13,8 @@ export const RecipeList = () => {
             dispatch({ type: RECIPE_ACTIONS.update, payload: recipes })
         );
     }, [dispatch]);
+
+    // use RecipeList component to display the list of recipe below
 
     const handleRecipeClick = (idMeal) => {
         console.log('Recipe clicked:', idMeal);

@@ -1,0 +1,13 @@
+.navbar {
+  font-size: 2.5rem;
+  padding: 20px;
+  color: #343a40; /* Figma başlık rengi */
+  margin-bottom: 40px;
+  font-weight: bold;
+}
+
+.navbar__list {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+}

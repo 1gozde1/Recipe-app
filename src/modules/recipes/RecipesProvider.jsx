@@ -2,6 +2,7 @@ import { createContext, useReducer, useContext } from 'react';
 
 export const RECIPE_ACTIONS ={
     update: 'update',
+    refresh: 'refresh',
     deleteAll: 'delete_all',
 };
 
@@ -30,6 +31,11 @@ function userReducer (state, action) {
             );
             return [...newRecipes, ...state];
         }
+        case RECIPE_ACTIONS.refresh: {
+            
+            return [...action.payload];
+        }
+
         case RECIPE_ACTIONS.deleteAll: {
             return ([]);
         }
