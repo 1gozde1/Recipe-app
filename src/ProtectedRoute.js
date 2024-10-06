@@ -1,8 +1,13 @@
 import { Navigate } from "react-router-dom";
-
+import { useUser } from "./Contexts/UserContext";
 export const ProtectedRoute = ({ children }) => {
-  // TODO: replace with actual value from User context when it is available
+  const { user } = useUser(); // UserContext'ten user bilgisini alıyor
 
-  const userLoggedIn = true;
-  return userLoggedIn ? children : <Navigate to="/login" replace={true} />;
+  if (!user) {
+    // Kullanıcı giriş yapmamışsa login sayfasına yönlendiriyor
+    return <Navigate to="/login" replace />;
+  }
+
+  // Kullanıcı giriş yapmışsa, korunan içeriği gösteriyo
+  return children;
 };

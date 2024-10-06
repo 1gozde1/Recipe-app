@@ -4,11 +4,13 @@ import { RecipeList } from "./modules/recipes/RecipeList";
 import { SearchBar } from "./modules/recipes/SearchBar";
 import { RecipeDetails } from "./modules/recipes/RecipeDetails";
 import { ProtectedRoute } from "./ProtectedRoute";
+import { CreateRecipe } from "./modules/recipes/CreateRecipe";
+import { Login } from "./modules/recipes/Login";
 
 export const AppRouter = () => {
   return (
     <Routes>
-      <Route path="/login" element={<h1>Login page</h1>} />
+      <Route path="/login" element={<Login />} />
       <Route
         path="/user"
         element={
@@ -37,6 +39,14 @@ export const AppRouter = () => {
           }
         />
         <Route path=":recipeId" element={<RecipeDetails />} />
+        <Route
+          path="create"
+          element={
+            <ProtectedRoute>
+              <CreateRecipe />
+            </ProtectedRoute>
+          }
+        />
       </Route>
 
       <Route path="/" element={<FeaturedRecipes />} />

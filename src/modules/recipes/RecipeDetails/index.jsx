@@ -40,7 +40,7 @@ const RecipeDetail = ({ recipe }) => {
       <h2>{recipe.strMeal}</h2>
       <p>{recipe.strInstructions}</p>
       <p>
-        <strong>Malzemeler:</strong>
+        <strong>Ingredients:</strong>
       </p>
       <ul>
         {recipe.ingredients.map((ingredient, index) => (
