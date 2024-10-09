@@ -9,8 +9,8 @@ export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    // Sayfa yenilendiğinde kullanıcı oturumunu kontrol eder
-    const token = localStorage.getItem("token");
+    
+    const token = localStorage.getItem("token"); // kullanıcı bilgileri token olarak saklanıyor 
     if (token) {
       setUser({ token });
     }

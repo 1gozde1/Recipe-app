@@ -5,13 +5,15 @@ import { RecipeDetails } from "./modules/recipes/RecipeDetails";
 import { ProtectedRoute } from "./ProtectedRoute";
 import { CreateRecipe } from "./modules/recipes/CreateRecipe";
 import { Login } from "./modules/user/Login";
-import { Categories } from "./modules/recipes/Categories"; 
-import { CategoryDetails } from "./modules/recipes/CategoryDetails"; 
+import { Categories } from "./modules/recipes/Categories";
+import { CategoryDetails } from "./modules/recipes/CategoryDetails";
+import { Register } from "./modules/user/Register";
 
 export const AppRouter = ({ recipes, onRecipeClick }) => {
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
       <Route
         path="/user"
         element={
