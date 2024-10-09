@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useUser } from "../../Contexts/UserContext";
-import "./Login.css";
+import { useUser } from "../UserContext";
+import "./styles.css";
 
 export const Login = () => {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { login } = useUser();
   const navigate = useNavigate();
@@ -14,7 +14,7 @@ export const Login = () => {
     try {
       // Burada API çağrısı yapılacak
 
-      await login({ username, token: "fake-token" });
+      await login({ email, token: "fake-token" });
       navigate("/"); // Başarılı girişten sonra ana sayfaya yönlendirir
     } catch (error) {
       console.error("Login failed:", error);
@@ -24,14 +24,14 @@ export const Login = () => {
   return (
     <div className="login-container">
       <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} class="form">
         <div>
-          <label htmlFor="username">Username:</label>
+          <label htmlFor="username">E-mail:</label>
           <input
             type="text"
-            id="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             required
           />
         </div>

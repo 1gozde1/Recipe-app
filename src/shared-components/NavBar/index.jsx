@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useUser } from "../../Contexts/UserContext";
+import { useUser } from "../../modules/user/UserContext";
 import "./styles.css";
 
 export const NavBar = () => {

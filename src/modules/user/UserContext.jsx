@@ -1,6 +1,7 @@
 import { createContext, useState, useContext, useEffect } from "react";
 
-const UserContext = createContext();
+export const UserContext = createContext();
+export const UserDispatchContext = createContext();
 
 export const useUser = () => useContext(UserContext);
 
