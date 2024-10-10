@@ -14,7 +14,7 @@ export const Register = () => {
     e.preventDefault();
     try {
       // Burada API çağrısı yapılacak ve kayıt işlemi gerçekleştirilecek
-      const userData = { userName, email, token: "fake-token" }; //şifre saklanmıyor şifre token olarak görünüyor
+      const userData = { userName, email, token: Date.now() }; //şifre saklanmıyor şifre token olarak görünüyor
       await login(userData); // Otomatik giriş yapılacak
       navigate("/"); // Ana sayfaya yönlendir
     } catch (error) {
