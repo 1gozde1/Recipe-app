@@ -26,7 +26,7 @@ export const NavBar = () => {
         {user && (
           <>
             <li>
-              <Link to="/recipes/create">Create New Recipe</Link>
+              <Link to="/recipes/new">Create New Recipe</Link>
             </li>
             <li>
               <Link to="/user">Account</Link>
