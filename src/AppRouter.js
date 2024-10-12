@@ -30,6 +30,14 @@ export const AppRouter = ({ recipes, onRecipeClick }) => {
           </ProtectedRoute>
         }
       />
+      <Route
+        path="/recipes/new"
+        element={
+          <ProtectedRoute>
+            <NewRecipeForm />
+          </ProtectedRoute>
+        }
+      />
 
       <Route path="/recipes">
         <Route
@@ -46,14 +54,6 @@ export const AppRouter = ({ recipes, onRecipeClick }) => {
         <Route path="categories" element={<Categories />} />
         <Route path="category/:category" element={<CategoryDetails />} />
       </Route>
-      <Route
-        path="new"
-        element={
-          <ProtectedRoute>
-            <NewRecipeForm />
-          </ProtectedRoute>
-        }
-      />
 
       <Route path="/" element={<SearchBar />} />
       <Route path="*" element={<h1>Page not found</h1>} />

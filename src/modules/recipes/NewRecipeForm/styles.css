@@ -1,0 +1,38 @@
+
+form {
+  display: flex;
+  flex-direction: column;
+  max-width: 500px; 
+  margin: 20px auto; 
+  padding: 20px;
+  border: 1px solid #ccc; 
+  border-radius: 8px; 
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Gölgeleme */
+  background-color: #fff; 
+}
+
+label {
+  margin: 10px 0 5px; /* Label'lar arası boşluk */
+  font-weight: bold; 
+}
+
+input, select, textarea {
+  padding: 10px; /* İçerik için boşluk */
+  border: 1px solid #ccc; /* Kenar çizgisi */
+  border-radius: 4px; /* Kenarları yuvarlama şeysi */
+  font-size: 16px; 
+}
+
+button {
+  padding: 10px; 
+  margin-top: 10px; /* Üstten boşluk */
+  border: none; /* Kenar çizgisi yok */
+  border-radius: 4px; 
+  background-color: #28a745; 
+  color: white; 
+  cursor: pointer; /* İmleç göstergesi */
+}
+
+button:hover {
+  background-color: #218838; /* Hover durumunda arka plan rengini değiştiriyor  */
+}

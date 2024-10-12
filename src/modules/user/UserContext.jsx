@@ -9,8 +9,7 @@ export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    
-    const token = localStorage.getItem("token"); // kullanıcı bilgileri token olarak saklanıyor 
+    const token = localStorage.getItem("token"); // kullanıcı bilgileri token olarak saklanıyor
     if (token) {
       setUser({ token });
     }
