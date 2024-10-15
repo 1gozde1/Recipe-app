@@ -3,10 +3,14 @@ import { UserProvider } from "./modules/user/UserContext";
 import { NavBar } from "./shared-components/NavBar";
 import { fetchRecipeDetailsById } from "./modules/recipes/recipeService";
 import { AppRouter } from "./AppRouter";
+import { useRecipes } from "./modules/recipes/RecipesProvider";
 import "./App.css";
 
-export const App = ({ recipes }) => {
+export const App = () => {
   const [selectedRecipe, setSelectedRecipe] = useState(null);
+
+  // recipe contextten tarifleri alıyoruz
+  const recipes = useRecipes();
 
   const handleRecipeClick = async (idMeal) => {
     const details = await fetchRecipeDetailsById(idMeal);
@@ -18,7 +22,6 @@ export const App = ({ recipes }) => {
       <NavBar />
       <div className="container">
         <AppRouter
-          recipes={recipes}
           handleRecipeClick={handleRecipeClick}
           selectedRecipe={selectedRecipe}
         />

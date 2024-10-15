@@ -1,19 +1,38 @@
-import { useRecipes, useRecipesDispatch } from "../RecipesProvider"; 
-import { RECIPE_ACTIONS } from "../RecipesProvider";
+import {
+  useRecipes,
+  useRecipesDispatch,
+  RECIPE_ACTIONS,
+} from "../RecipesProvider";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./styles.css";
 
-// TODO: take recipes as props in this component.
 export const RecipeList = () => {
   const recipes = useRecipes();
-  const dispatch = useRecipesDispatch(); // Get dispatch fonksiyonu
+  const dispatch = useRecipesDispatch(); // Dispatch fonksiyonunu yaptık
+
+  // useEffect ile sayfa yüklendiğinde API'den tarifleri çekecek
+  useEffect(() => {
+    const fetchRecipes = async () => {
+      try {
+        const response = await fetch(
+          "https://www.themealdb.com/api/json/v1/1/search.php?f=a",
+        );
+        const data = await response.json();
+
+        if (data.meals) {
+          dispatch({ type: RECIPE_ACTIONS.update, payload: data.meals });
+        }
+      } catch (error) {
+        console.error("Failed to fetch recipes:", error);
+      }
+    };
+
+    fetchRecipes(); // API çağrısını başlatır
+  }, [dispatch]);
 
   const handleRecipeClick = (idMeal) => {
     console.log("Recipe clicked:", idMeal);
-  };
-
-  const addNewRecipe = (newRecipe) => {
-    dispatch({ type: RECIPE_ACTIONS.update, payload: [newRecipe] });
   };
 
   return (

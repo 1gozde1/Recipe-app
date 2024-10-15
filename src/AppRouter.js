@@ -8,8 +8,10 @@ import { Login } from "./modules/user/Login";
 import { Categories } from "./modules/recipes/Categories";
 import { CategoryDetails } from "./modules/recipes/CategoryDetails";
 import { Register } from "./modules/user/Register";
+import { useRecipes } from "./modules/recipes/RecipesProvider";
 
-export const AppRouter = ({ recipes, onRecipeClick }) => {
+export const AppRouter = ({ onRecipeClick }) => {
+  const recipes = useRecipes(); // Context'ten recipes alındı
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
@@ -35,7 +37,7 @@ export const AppRouter = ({ recipes, onRecipeClick }) => {
         element={
           <ProtectedRoute>
             <NewRecipeForm />
-          </ProtectedRoute>
+            </ProtectedRoute>
         }
       />
 
