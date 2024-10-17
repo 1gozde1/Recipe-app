@@ -34,8 +34,27 @@ export const NewRecipeForm = () => {
       strArea: data.strArea,
       strInstructions: data.strInstructions,
       strMealThumb: data.strMealImage,
-      ingredients: data.ingredients,
     };
+
+    // Malzemeleri ve ölçüleri ayırma işlemi
+    data.ingredients.forEach((item, index) => {
+      if (index < 20) {
+        // API'nin 20 malzeme ve ölçü sınırına uymak için
+        // strIngredient1, strIngredient2 vb. için malzemeleri ekler
+        newRecipe[`strIngredient${index + 1}`] = item.ingredient;
+
+        // strMeasure1, strMeasure2 vb. için ölçüleri ekler
+        newRecipe[`strMeasure${index + 1}`] = item.amount
+          ? `${item.amount} ${item.measure}`
+          : "";
+      }
+    });
+
+    // Eğer 20'den az malzeme varsa, kalan alanları boş yapar
+    for (let i = data.ingredients.length; i < 20; i++) {
+      newRecipe[`strIngredient${i + 1}`] = "";
+      newRecipe[`strMeasure${i + 1}`] = "";
+    }
 
     dispatch({ type: RECIPE_ACTIONS.update, payload: [newRecipe] });
     console.log("Form submitted:", newRecipe);
