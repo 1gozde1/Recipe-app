@@ -12,7 +12,7 @@ export const FeaturedRecipes = () => {
 
   useEffect(() => {
     fetchRecipesByIngredient("chicken_breast").then((recipes) =>
-      dispatch({ type: RECIPE_ACTIONS.update, payload: recipes }),
+      dispatch({ type: RECIPE_ACTIONS.update, payload: recipes })
     );
   }, [dispatch]);
 

@@ -20,9 +20,6 @@ export const NavBar = () => {
         <li>
           <Link to="/recipes/search">Search Recipes</Link>
         </li>
-        <li>
-          <Link to="/recipes/categories">Categories</Link>
-        </li>
 
         <li>
           <Link to="/recipes/new">Create New Recipe</Link>

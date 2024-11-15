@@ -9,6 +9,7 @@ import { Categories } from "./modules/recipes/Categories";
 import { CategoryDetails } from "./modules/recipes/CategoryDetails";
 import { Register } from "./modules/user/Register";
 import { useRecipes } from "./modules/recipes/RecipesProvider";
+import { FeaturedRecipes } from "./modules/recipes/FeaturedRecipes";
 
 export const AppRouter = ({ onRecipeClick }) => {
   const recipes = useRecipes(); // Context'ten recipes alındı
@@ -47,17 +48,25 @@ export const AppRouter = ({ onRecipeClick }) => {
           element={
             <>
               <SearchBar />
-              <RecipeList recipes={recipes} onRecipeClick={onRecipeClick} />
+              <Categories />
             </>
           }
         />
         <Route path=":recipeId" element={<RecipeDetails />} />
 
-        <Route path="categories" element={<Categories />} />
         <Route path="category/:category" element={<CategoryDetails />} />
       </Route>
 
-      <Route path="/" element={<SearchBar />} />
+      {/* Ana Sayfada FeaturedRecipes ve Arama Çubuğu Yan Yana Gösteriliyor */}
+      <Route
+        path="/"
+        element={
+          <>
+            <SearchBar />
+            <FeaturedRecipes />
+          </>
+        }
+      />
       <Route path="*" element={<h1>Page not found</h1>} />
     </Routes>
   );

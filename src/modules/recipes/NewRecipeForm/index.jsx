@@ -114,9 +114,13 @@ export const NewRecipeForm = () => {
                 placeholder="Ingredient"
               />
               <input
-                type="number"
+                type="text"
                 {...register(`ingredients.${index}.amount`, {
                   required: "Amount is required.",
+                  pattern: {
+                    value: /^(\d+(\.\d+)?|\d+(\,\d+)?)/, // Hem nokta hem virgül ile ondalıklı sayılara izin verir.
+                    message: "Please enter a valid amount.",
+                  },
                 })}
                 placeholder="Amount"
               />
@@ -163,8 +167,8 @@ export const NewRecipeForm = () => {
             id="strMealImage"
             {...register("strMealImage", {
               pattern: {
-                value: /https?:\/\/.+\.(jpg|jpeg|png)$/,
-                message: "Please enter a valid URL.",
+                value: /https?:\/\/.+\.(jpg|jpeg|png|webp|gif|bmp|tiff|svg)/,
+                message: "Please enter a valid URL for an image.",
               },
             })}
           />

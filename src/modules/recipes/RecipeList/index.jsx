@@ -16,9 +16,10 @@ export const RecipeList = () => {
     const fetchRecipes = async () => {
       try {
         const response = await fetch(
-          "https://www.themealdb.com/api/json/v1/1/search.php?f=a",
+          ("https://www.themealdb.com/api/json/v1/1/filter.php?c=Seafood"),
         );
         const data = await response.json();
+        
 
         if (data.meals) {
           dispatch({ type: RECIPE_ACTIONS.update, payload: data.meals });
