@@ -6,13 +6,23 @@ import { AppRouter } from "./AppRouter";
 import { useRecipes } from "./modules/recipes/RecipesProvider";
 import "./App.css";
 
-export const App = () => {
-  const [selectedRecipe, setSelectedRecipe] = useState(null);
+interface RecipeDetails {
+  idMeal: string;
+  strMeal: string;
+  strMealThumb: string;
+  strInstructions: string;
+  ingredients: string[];
+}
+
+export const App: React.FC = () => {
+  const [selectedRecipe, setSelectedRecipe] = useState<RecipeDetails | null>(
+    null
+  );
 
   // recipe contextten tarifleri alıyoruz
   const recipes = useRecipes();
 
-  const handleRecipeClick = async (idMeal) => {
+  const handleRecipeClick = async (idMeal: string) => {
     const details = await fetchRecipeDetailsById(idMeal);
     setSelectedRecipe(details);
   };
@@ -22,7 +32,7 @@ export const App = () => {
       <NavBar />
       <div className="container">
         <AppRouter
-          handleRecipeClick={handleRecipeClick}
+          onRecipeClick={handleRecipeClick}
           selectedRecipe={selectedRecipe}
         />
       </div>

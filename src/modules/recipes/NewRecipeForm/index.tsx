@@ -1,7 +1,22 @@
-import { useForm, useFieldArray } from "react-hook-form";
+import { useForm, useFieldArray, SubmitHandler } from "react-hook-form";
 import { useRecipesDispatch } from "../RecipesProvider";
 import { RECIPE_ACTIONS } from "../RecipesProvider";
 import "./styles.css";
+
+interface Ingredient {
+  ingredient: string;
+  amount: string;
+  measure: string;
+}
+
+interface FormData {
+  strMeal: string;
+  strCategory: string;
+  strArea: string;
+  ingredients: Ingredient[];
+  strInstructions: string;
+  strMealImage: string;
+}
 
 export const NewRecipeForm = () => {
   const dispatch = useRecipesDispatch();
@@ -10,7 +25,7 @@ export const NewRecipeForm = () => {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm({
+  } = useForm<FormData>({
     defaultValues: {
       strMeal: "",
       strCategory: "Beef",
@@ -26,8 +41,18 @@ export const NewRecipeForm = () => {
     name: "ingredients",
   });
 
-  const onSubmit = (data) => {
-    const newRecipe = {
+  type Recipe = {
+    idMeal: string;
+    strMeal: string;
+    strCategory: string;
+    strArea: string;
+    strInstructions: string;
+    strMealThumb: string;
+    [key: string]: string | undefined; // Dinamik anahtarlar için(strIngredient+1 ve strMeasure+1 gibi)
+  };
+
+  const onSubmit: SubmitHandler<FormData> = (data) => {
+    const newRecipe: Recipe = {
       idMeal: Date.now().toString(),
       strMeal: data.strMeal,
       strCategory: data.strCategory,
@@ -39,11 +64,7 @@ export const NewRecipeForm = () => {
     // Malzemeleri ve ölçüleri ayırma işlemi
     data.ingredients.forEach((item, index) => {
       if (index < 20) {
-        // API'nin 20 malzeme ve ölçü sınırına uymak için
-        // strIngredient1, strIngredient2 vb. için malzemeleri ekler
         newRecipe[`strIngredient${index + 1}`] = item.ingredient;
-
-        // strMeasure1, strMeasure2 vb. için ölçüleri ekler
         newRecipe[`strMeasure${index + 1}`] = item.amount
           ? `${item.amount} ${item.measure}`
           : "";

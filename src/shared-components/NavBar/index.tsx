@@ -2,8 +2,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useUser } from "../../modules/user/UserContext";
 import "./styles.css";
 
-export const NavBar = () => {
-  const { user, logout } = useUser();
+export const NavBar: React.FC = () => {
+  const { user, logout } = useUser(); // user tipi User | null olmalı
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -20,7 +20,6 @@ export const NavBar = () => {
         <li>
           <Link to="/recipes/search">Search Recipes</Link>
         </li>
-
         <li>
           <Link to="/recipes/new">Create New Recipe</Link>
         </li>

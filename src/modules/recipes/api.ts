@@ -1,6 +1,29 @@
 const API_BASE_URL = "https://www.themealdb.com/api/json/v1/1";
 
-export const fetchRecipeById = async (id) => {
+// Recipe için TypeScript türü
+export interface Recipe {
+  idMeal: string;
+  strMeal: string;
+  strCategory: string;
+  strArea: string;
+  strInstructions: string;
+  strMealThumb: string;
+  strTags: string | null;
+  strYoutube: string | null;
+  ingredients: string[];
+  [key: string]: any; // Ek alanlar için
+}
+
+// Category için TypeScript türü
+export interface Category {
+  idCategory: string;
+  strCategory: string;
+  strCategoryThumb: string;
+  strCategoryDescription: string;
+}
+
+// fetchRecipeById fonksiyonu
+export const fetchRecipeById = async (id: string): Promise<Recipe> => {
   try {
     const response = await fetch(`${API_BASE_URL}/lookup.php?i=${id}`);
     if (!response.ok) {
@@ -11,7 +34,7 @@ export const fetchRecipeById = async (id) => {
     if (data.meals && data.meals.length > 0) {
       const recipe = data.meals[0];
 
-      const ingredients = [];
+      const ingredients: string[] = [];
       for (let i = 1; i <= 20; i++) {
         if (recipe[`strIngredient${i}`]) {
           ingredients.push(
@@ -33,7 +56,8 @@ export const fetchRecipeById = async (id) => {
   }
 };
 
-export const fetchCategories = async () => {
+// fetchCategories fonksiyonu
+export const fetchCategories = async (): Promise<Category[]> => {
   try {
     const response = await fetch(`${API_BASE_URL}/categories.php`);
     if (!response.ok) {
@@ -47,7 +71,10 @@ export const fetchCategories = async () => {
   }
 };
 
-export const fetchRecipesByCategory = async (category) => {
+// fetchRecipesByCategory fonksiyonu
+export const fetchRecipesByCategory = async (
+  category: string,
+): Promise<Recipe[]> => {
   try {
     const response = await fetch(`${API_BASE_URL}/filter.php?c=${category}`);
     if (!response.ok) {

@@ -1,5 +1,4 @@
 import { Routes, Route } from "react-router-dom";
-import { RecipeList } from "./modules/recipes/RecipeList";
 import { SearchBar } from "./modules/recipes/SearchBar";
 import { RecipeDetails } from "./modules/recipes/RecipeDetails";
 import { ProtectedRoute } from "./ProtectedRoute";
@@ -11,8 +10,23 @@ import { Register } from "./modules/user/Register";
 import { useRecipes } from "./modules/recipes/RecipesProvider";
 import { FeaturedRecipes } from "./modules/recipes/FeaturedRecipes";
 
-export const AppRouter = ({ onRecipeClick }) => {
+// RecipeDetails tipini import ettik
+interface RecipeDetails {
+  idMeal: string;
+  strMeal: string;
+  strMealThumb: string;
+  strInstructions: string;
+  ingredients: string[];
+}
+
+interface AppRouterProps {
+  onRecipeClick: (idMeal: string) => Promise<void>;
+  selectedRecipe: RecipeDetails | null; // selectedRecipe özelliğini ekledik
+}
+
+export const AppRouter: React.FC<AppRouterProps> = ({ onRecipeClick }) => {
   const recipes = useRecipes(); // Context'ten recipes alındı
+
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
@@ -57,7 +71,6 @@ export const AppRouter = ({ onRecipeClick }) => {
         <Route path="category/:category" element={<CategoryDetails />} />
       </Route>
 
-      {/* Ana Sayfada FeaturedRecipes ve Arama Çubuğu Yan Yana Gösteriliyor */}
       <Route
         path="/"
         element={

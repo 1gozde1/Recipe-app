@@ -1,7 +1,12 @@
+import React from "react";
 import { Navigate } from "react-router-dom";
 import { useUser } from "./modules/user/UserContext";
 
-export const ProtectedRoute = ({ children }) => {
+interface ProtectedRouteProps {
+  children: React.ReactNode; // children React bileşenlerini temsil ediyor
+}
+
+export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   const { user } = useUser(); // UserContext'ten user bilgisini alıyor
 
   if (!user) {
@@ -9,6 +14,6 @@ export const ProtectedRoute = ({ children }) => {
     return <Navigate to="/login" replace />;
   }
 
-  // Kullanıcı giriş yapmışsa, korunan içeriği gösteriyo
-  return children;
+  // Kullanıcı giriş yapmışsa, korunan içeriği gösteriyor
+  return <>{children}</>;
 };

@@ -1,19 +1,25 @@
-import { useState } from "react";
+import { useState, ChangeEvent, FormEvent } from "react";
 import "./styles.css";
 import { searchRecipesByName } from "../recipeService";
 import { RECIPE_ACTIONS, useRecipesDispatch } from "../RecipesProvider";
 
+interface Recipe {
+  idMeal: string;
+  strMeal: string;
+  strMealThumb: string;
+}
+
 export const SearchBar = () => {
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState<string>(""); // query değişkeni string türünde olacak
   const dispatch = useRecipesDispatch();
 
-  function handleChange(e) {
+  function handleChange(e: ChangeEvent<HTMLInputElement>) {
     setQuery(e.target.value.trim());
   }
 
-  async function handleSubmit(e) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const recipes = await searchRecipesByName(query);
+    const recipes: Recipe[] = await searchRecipesByName(query);
     dispatch({ TYPE: RECIPE_ACTIONS.refresh, payload: recipes });
   }
   // TODO: Send request to search recipes

@@ -1,21 +1,24 @@
-import { useState } from "react";
+import { useState, FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../UserContext";
 import { Link } from "react-router-dom";
 import "./styles.css";
 
-export const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const { login } = useUser();
+export const Login: React.FC = () => { // Functional Component (Fonksiyonel Bileşen)props ile çalışırken tür güvenliği sağlar
+  // State türleri belirleniyor
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+
+  // Context ve navigate fonksiyonları
+  const { login } = useUser(); // login fonksiyonunun tipi UserContext'te tanımlanmalı
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  // Form submit handler
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      // Burada API çağrısı yapılacak
-
-      await login({ email, token: "fake-token" });
+      // Burada API çağrısı yapılabilir
+      await login({ email, token: "fake-token" }); // login fonksiyonunun tipi Context'te tanımlanmalı
       navigate("/"); // Başarılı girişten sonra ana sayfaya yönlendirir
     } catch (error) {
       console.error("Login failed:", error);
@@ -25,9 +28,9 @@ export const Login = () => {
   return (
     <div className="login-container">
       <h2>Login</h2>
-      <form onSubmit={handleSubmit} class="form">
+      <form onSubmit={handleSubmit} className="form">
         <div>
-          <label htmlFor="username">E-mail:</label>
+          <label htmlFor="email">E-mail:</label>
           <input
             type="text"
             id="email"

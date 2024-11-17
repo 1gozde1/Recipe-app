@@ -1,12 +1,18 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { fetchCategories } from "../api";
-import "./styles.css";
+
+// Category tipi 
+type Category = {
+  idCategory: string;
+  strCategory: string;
+  strCategoryThumb: string;
+};
 
 export const Categories = () => {
-  const [categories, setCategories] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const getCategories = async () => {

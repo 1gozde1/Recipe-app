@@ -1,21 +1,31 @@
-import { useState } from "react";
+import { useState, FormEvent } from "react"; // FormEvent ekledik
 import { useUser } from "../UserContext";
 import { useNavigate } from "react-router-dom";
 import "./styles.css";
 
-export const Register = () => {
-  const [userName, setUserName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const { login } = useUser();
-  const navigate = useNavigate();
+// Register bileşeni
+export const Register: React.FC = () => {
+  // Durumlar (state) için türler tanımlandı
+  const [userName, setUserName] = useState<string>(""); // string türü belirlendi
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const { login } = useUser(); // Context API çağrısı
+  const navigate = useNavigate(); // Sayfa yönlendirme
+
+  // Form gönderim fonksiyonu
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault(); // Formun varsayılan davranışını engelle
+
     try {
-      // Burada API çağrısı yapılacak ve kayıt işlemi gerçekleştirilecek
-      const userData = { userName, email, token: "fake-token" }; //şifre saklanmıyor şifre token olarak görünüyor
-      await login(userData); // Otomatik giriş yapılacak
+      // Kullanıcı verilerini oluştur
+      const userData = { 
+        userName, 
+        email, 
+        token: "fake-token" // Şifre saklanmıyor; bir token olarak görünüyor
+      };
+
+      await login(userData); // Kullanıcı giriş yap
       navigate("/"); // Ana sayfaya yönlendir
     } catch (error) {
       console.error("Registration failed:", error);

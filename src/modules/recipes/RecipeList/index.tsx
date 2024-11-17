@@ -7,9 +7,16 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./styles.css";
 
+// API'den dönen öğe tiplerini tanımlıyoruz
+interface Recipe {
+  idMeal: string;
+  strMeal: string;
+  strMealThumb: string;
+}
+
 export const RecipeList = () => {
   const recipes = useRecipes();
-  const dispatch = useRecipesDispatch(); // Dispatch fonksiyonunu yaptık
+  const dispatch = useRecipesDispatch(); 
 
   // useEffect ile sayfa yüklendiğinde API'den tarifleri çekecek
   useEffect(() => {
@@ -32,7 +39,7 @@ export const RecipeList = () => {
     fetchRecipes(); // API çağrısını başlatır
   }, [dispatch]);
 
-  const handleRecipeClick = (idMeal) => {
+  const handleRecipeClick = (idMeal: string): void => {
     console.log("Recipe clicked:", idMeal);
   };
 
@@ -40,7 +47,7 @@ export const RecipeList = () => {
     <>
       {recipes.length > 0 ? (
         <ul className="recipe-list">
-          {recipes.map((recipe) => (
+          {recipes.map((recipe: Recipe) => (
             <li
               key={recipe.idMeal}
               onClick={() => handleRecipeClick(recipe.idMeal)}

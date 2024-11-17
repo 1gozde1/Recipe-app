@@ -6,19 +6,30 @@ import {
 } from "../RecipesProvider";
 import { fetchRecipesByIngredient } from "../recipeService";
 
-export const FeaturedRecipes = () => {
-  const recipes = useRecipes();
-  const dispatch = useRecipesDispatch();
+// Recipe tipini tanımlıyoruz
+interface Recipe {
+  idMeal: string;
+  strMeal: string;
+  strMealThumb: string;
+}
+
+export const FeaturedRecipes: React.FC = () => {
+  // useRecipes ve useRecipesDispatch türlerini tanımlıyoruz
+  const recipes = useRecipes() as Recipe[]; // recipes'in bir Recipe listesi olduğunu belirtiyoruz
+  const dispatch = useRecipesDispatch() as React.Dispatch<{
+    type: string;
+    payload: Recipe[];
+  }>;
 
   useEffect(() => {
-    fetchRecipesByIngredient("chicken_breast").then((recipes) =>
+    // fetchRecipesByIngredient fonksiyonunun doğru bir Recipe[] döndüğünü belirtiyoruz
+    fetchRecipesByIngredient("chicken_breast").then((recipes: Recipe[]) =>
       dispatch({ type: RECIPE_ACTIONS.update, payload: recipes })
     );
   }, [dispatch]);
 
-  // use RecipeList component to display the list of recipe below
-
-  const handleRecipeClick = (idMeal) => {
+  // handleRecipeClick fonksiyonuna idMeal'in tipini belirtiyoruz
+  const handleRecipeClick = (idMeal: string): void => {
     console.log("Recipe clicked:", idMeal);
   };
 

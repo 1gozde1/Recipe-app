@@ -1,19 +1,28 @@
-// Bu dosyayı oluşturun
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { fetchRecipesByCategory } from "../api";
-import "./styles.css";
 
-export const CategoryDetails = () => {
-  const { category } = useParams();
-  const [recipes, setRecipes] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+// Recipe tipini tanımlıyoruz
+interface Recipe {
+  idMeal: string;
+  strMeal: string;
+  strMealThumb: string;
+}
+
+export const CategoryDetails: React.FC = () => {
+  // useParams'tan dönen değerin tipini tanımlıyoruz
+  const { category } = useParams<{ category: string }>();
+  
+  // recipes için tip belirtiyoruz
+  const [recipes, setRecipes] = useState<Recipe[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const loadRecipes = async () => {
       try {
-        const data = await fetchRecipesByCategory(category);
+        // fetchRecipesByCategory'nin döndüğü veriye uygun tip belirtiyoruz
+        const data: Recipe[] = await fetchRecipesByCategory(category!);
         setRecipes(data);
       } catch (err) {
         setError("Recipes could not be reached");
