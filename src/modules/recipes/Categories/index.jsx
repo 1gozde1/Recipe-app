@@ -32,7 +32,7 @@ export const Categories = () => {
       <ul>
         {categories.map((category) => (
           <li key={category.idCategory}>
-            <Link to={`/recipes/category/${category.strCategory}`}>
+            <Link to={`/categories/${category.strCategory}`}>
               <img src={category.strCategoryThumb} alt={category.strCategory} />
               <h2>{category.strCategory}</h2>
             </Link>

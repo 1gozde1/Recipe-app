@@ -48,9 +48,12 @@ export const AppRouter = ({ recipes, onRecipeClick }) => {
             </ProtectedRoute>
           }
         />
-        <Route path="categories" element={<Categories />} />
-        <Route path="category/:category" element={<CategoryDetails />} />
       </Route>
+
+      {/* Categories ve CategoryDetails rotalarını ana rotada tanımla */}
+      <Route path="/categories" element={<Categories />} />
+      <Route path="/categories/:category" element={<CategoryDetails />} />
+
       <Route
         path="/recipes/create"
         element={
