@@ -1,18 +1,10 @@
 .form-container {
-  background-color: #ffffff;
-  max-width: 500px; /* Genişliği ayarla */
-  margin: 100px auto; /* Ortala */
-  padding: 30px; /* İçerik boşluğu */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-}
-
-h2 {
-  text-align: center;
-  color: #333333;
-  font-size: 24px;
-  margin-bottom: 20px;
-  font-weight: 600;
+  background-color: #f9f9f9;
+  max-width: 500px;
+  margin: 100px auto;
+  padding: 40px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
 }
 
 form {
@@ -21,44 +13,119 @@ form {
 }
 
 .form-group {
-  margin-bottom: 15px;
-}
-
-label {
-  margin-bottom: 5px;
-  font-size: 14px;
-  color: #333;
-  font-weight: 500;
+  margin-bottom: 25px;
 }
 
 input,
 select,
 textarea {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  padding: 12px;
+  border-radius: 6px;
   font-size: 16px;
   width: 100%;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Giriş alanlarına odaklanıldığında kenar rengini değiştirme ve gölge ekleme */
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #ff6600; /* Odaklandığında kenar rengi */
+  box-shadow: 0 0 5px rgba(255, 102, 0, 0.5); /* Odaklandığında hafif gölge ekle */
+  outline: none; /* Varsayılan odak stilini kaldır */
+}
+
+.ingredient-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+input.ingredient-input,
+input.amount-input,
+select,
+button.remove-button,
+button.measure-button {
+  flex: 1; /* Alanların eşit büyümesini sağlar */
+  min-width: 102px;
+  padding: 8px;
+  font-size: 16px;
+
+  border-radius: 6px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Malzeme alanlarının aynı hizada olması */
+input.ingredient-input,
+input.amount-input,
+select,
+button.measure-button {
+  display: flex; /* Flexbox etkinleştir */
+  justify-content: space-between; /* Butonlar arasında eşit boşluk */
+  align-items: center; /* Dikey hizalama */
+  gap: 10px; /* Butonlar arasında boşluk */
+}
+
+button.remove-button {
+  max-width: 120px;
+}
+
+select {
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 16px;
+  width: 100%;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  background-color: #ffffff; /* Arka plan rengini beyaz yap */
+  border: 1px solid #ccc; /* Kenar rengi ekle */
+}
+
+select:focus {
+  border-color: #ff6600; /* Odaklandığında kenar rengi */
+  box-shadow: 0 0 5px rgba(255, 102, 0, 0.5); /* Odaklandığında hafif gölge ekle */
+  outline: none; /* Varsayılan odak stilini kaldır */
 }
 
 button {
-  padding: 10px;
+  padding: 12px;
   background-color: #ff6600;
   color: white;
-  border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
   font-size: 16px;
-  transition: background-color 0.3s ease;
-  width: 100%; /* Buton genişliği */
-  margin-top: 10px; /* Üstten boşluk */
+  transition: background-color 0.3s ease, transform 0.2s ease,
+    box-shadow 0.2s ease;
+  margin-top: auto;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+button.remove-button,
+button.measure-button {
+  padding: 12px;
+  background-color: #ff6600;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease, transform 0.2s ease,
+    box-shadow 0.2s ease;
+  margin-top: auto;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 button:hover {
   background-color: #e65c00;
+  transform: translateY(-2px); /* Hover durumunda yukarı kaydırma efekti */
+}
+
+textarea {
+  max-height: 200px; /* Yüksekliği sınırla */
+  overflow-y: auto; /* Taşma durumunda kaydırma çubuğu göster */
+  resize: vertical; /* Kullanıcının yeniden boyutlandırmasına izin ver */
 }
 
 .error-message {
   color: red;
-  font-size: 12px;
+  font-size: 14px;
 }

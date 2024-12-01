@@ -124,6 +124,13 @@ export const NewRecipeForm = () => {
                 })}
                 placeholder="Amount"
               />
+
+              {errors.ingredients?.[index]?.ingredient && (
+                <p className="error-message">
+                  {errors.ingredients[index].ingredient.message}
+                </p>
+              )}
+
               <select {...register(`ingredients.${index}.measure`)}>
                 <option value="">Measure</option>
                 <option value="grams">Grams</option>
@@ -140,7 +147,6 @@ export const NewRecipeForm = () => {
             </div>
           ))}
           <button
-            type="button"
             className="add-button"
             onClick={() => append({ ingredient: "", measure: "", amount: "" })}
           >
@@ -167,7 +173,8 @@ export const NewRecipeForm = () => {
             id="strMealImage"
             {...register("strMealImage", {
               pattern: {
-                value: /https?:\/\/.+\.(jpg|jpeg|png|webp|gif|bmp|tiff|svg)/,
+                value:
+                  /^https:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/,
                 message: "Please enter a valid URL for an image.",
               },
             })}

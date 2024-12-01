@@ -36,9 +36,9 @@ export const AppRouter = ({ onRecipeClick }) => {
       <Route
         path="/recipes/new"
         element={
-          <ProtectedRoute>
+          
             <NewRecipeForm />
-          </ProtectedRoute>
+          
         }
       />
 
