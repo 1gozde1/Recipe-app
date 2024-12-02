@@ -1,7 +1,7 @@
 import "./styles.css";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { fetchRecipeById } from "../api";
+import { fetchRecipeById } from "../recipeService";
 
 export const RecipeDetails = () => {
   const { recipeId } = useParams();
