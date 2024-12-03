@@ -5,8 +5,6 @@ import { RecipeDetails } from "./modules/recipes/RecipeDetails";
 import { ProtectedRoute } from "./ProtectedRoute";
 import { CreateRecipe } from "./modules/recipes/CreateRecipe";
 import { Login } from "./modules/recipes/Login";
-import { Categories } from "./modules/recipes/Categories"; // Kategorileri import et
-import { CategoryDetails } from "./modules/recipes/CategoryDetails"; // Kategori detaylarını import et
 
 export const AppRouter = ({ recipes, onRecipeClick }) => {
   return (
@@ -49,19 +47,6 @@ export const AppRouter = ({ recipes, onRecipeClick }) => {
           }
         />
       </Route>
-
-      {/* Categories ve CategoryDetails rotalarını ana rotada tanımla */}
-      <Route path="/categories" element={<Categories />} />
-      <Route path="/categories/:category" element={<CategoryDetails />} />
-
-      <Route
-        path="/recipes/create"
-        element={
-          <ProtectedRoute>
-            <CreateRecipe />
-          </ProtectedRoute>
-        }
-      />
 
       <Route path="/" element={<SearchBar />} />
       <Route path="*" element={<h1>Page not found</h1>} />
