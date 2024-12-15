@@ -32,7 +32,14 @@ export const AppRouter = ({ onRecipeClick }) => {
           </ProtectedRoute>
         }
       />
-      <Route path="/recipes/new" element={<NewRecipeForm />} />
+      <Route
+        path="/recipes/new"
+        element={
+          <ProtectedRoute>
+            <NewRecipeForm />
+          </ProtectedRoute>
+        }
+      />
 
       <Route path="/recipes">
         <Route
@@ -49,7 +56,6 @@ export const AppRouter = ({ onRecipeClick }) => {
         <Route path="category/:category" element={<CategoryDetails />} />
       </Route>
 
-      {/* Ana Sayfada FeaturedRecipes ve Arama Çubuğu Yan Yana Gösteriliyor */}
       <Route
         path="/"
         element={
