@@ -43,7 +43,6 @@ export const RecipeList = () => {
           {recipes.map((recipe) => (
             <li
               key={recipe.idMeal}
-              onClick={() => handleRecipeClick(recipe.idMeal)}
             >
               <Link to={`/recipes/${recipe.idMeal}`}>
                 <img src={recipe.strMealThumb} alt={recipe.strMeal} />
