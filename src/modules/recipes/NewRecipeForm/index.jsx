@@ -1,14 +1,17 @@
 import { useForm, useFieldArray } from "react-hook-form";
+import { useState } from "react";
 import { useRecipesDispatch } from "../RecipesProvider";
 import { RECIPE_ACTIONS } from "../RecipesProvider";
 import "./styles.css";
 
 export const NewRecipeForm = () => {
+  const [successMessage, setSuccessMessage] = useState("");
   const dispatch = useRecipesDispatch();
   const {
     register,
     handleSubmit,
     control,
+    reset,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -39,11 +42,7 @@ export const NewRecipeForm = () => {
     // Malzemeleri ve ölçüleri ayırma işlemi
     data.ingredients.forEach((item, index) => {
       if (index < 20) {
-        // API'nin 20 malzeme ve ölçü sınırına uymak için
-        // strIngredient1, strIngredient2 vb. için malzemeleri ekler
         newRecipe[`strIngredient${index + 1}`] = item.ingredient;
-
-        // strMeasure1, strMeasure2 vb. için ölçüleri ekler
         newRecipe[`strMeasure${index + 1}`] = item.amount
           ? `${item.amount} ${item.measure}`
           : "";
@@ -56,13 +55,19 @@ export const NewRecipeForm = () => {
       newRecipe[`strMeasure${i + 1}`] = "";
     }
 
+    // Yeni tarifi Recipe Context'e ekle
     dispatch({ type: RECIPE_ACTIONS.update, payload: [newRecipe] });
-    console.log("Form submitted:", newRecipe);
+
+    // Formu sıfırla ve başarı mesajını göster
+    reset();
+    setSuccessMessage("Recipe added successfully!");
+    setTimeout(() => setSuccessMessage(""), 5000); // 5 saniye sonra mesajı temizle
   };
 
   return (
     <div className="form-container">
       <h2>Add New Recipe</h2>
+
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="form-group">
           <label htmlFor="strMeal">Meal Name</label>
@@ -118,19 +123,17 @@ export const NewRecipeForm = () => {
                 {...register(`ingredients.${index}.amount`, {
                   required: "Amount is required.",
                   pattern: {
-                    value: /^(\d+(\.\d+)?|\d+(\,\d+)?)/, // Hem nokta hem virgül ile ondalıklı sayılara izin verir.
+                    value: /^(\d+(\.\d+)?|\d+(\d+)?)/,
                     message: "Please enter a valid amount.",
                   },
                 })}
                 placeholder="Amount"
               />
-
               {errors.ingredients?.[index]?.ingredient && (
                 <p className="error-message">
                   {errors.ingredients[index].ingredient.message}
                 </p>
               )}
-
               <select {...register(`ingredients.${index}.measure`)}>
                 <option value="">Measure</option>
                 <option value="grams">Grams</option>
@@ -174,7 +177,7 @@ export const NewRecipeForm = () => {
             {...register("strMealImage", {
               pattern: {
                 value:
-                  /^https:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/,
+                  /^https:\/\/(?:www\.)?[-a-zA-Z0-9@:%._~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_.~#?&=]*)$/,
                 message: "Please enter a valid URL for an image.",
               },
             })}
@@ -187,6 +190,7 @@ export const NewRecipeForm = () => {
         <button type="submit" className="submit-button">
           Submit
         </button>
+        {successMessage && <p className="success-message">{successMessage}</p>}
       </form>
     </div>
   );

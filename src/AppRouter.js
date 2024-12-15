@@ -1,5 +1,4 @@
 import { Routes, Route } from "react-router-dom";
-import { RecipeList } from "./modules/recipes/RecipeList";
 import { SearchBar } from "./modules/recipes/SearchBar";
 import { RecipeDetails } from "./modules/recipes/RecipeDetails";
 import { ProtectedRoute } from "./ProtectedRoute";
@@ -33,14 +32,7 @@ export const AppRouter = ({ onRecipeClick }) => {
           </ProtectedRoute>
         }
       />
-      <Route
-        path="/recipes/new"
-        element={
-          
-            <NewRecipeForm />
-          
-        }
-      />
+      <Route path="/recipes/new" element={<NewRecipeForm />} />
 
       <Route path="/recipes">
         <Route
