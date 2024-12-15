@@ -11,7 +11,9 @@ export const RecipeList = () => {
       {recipes.length > 0 ? (
         <ul className="recipe-list">
           {recipes.map((recipe) => (
-            <li key={recipe.idMeal}>
+            <li
+              key={recipe.idMeal}
+            >
               <Link to={`/recipes/${recipe.idMeal}`}>
                 <img src={recipe.strMealThumb} alt={recipe.strMeal} />
                 <h3>{recipe.strMeal}</h3>
