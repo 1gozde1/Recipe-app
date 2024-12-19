@@ -39,21 +39,6 @@ input {
   width: 100%;
 }
 
-button {
-  padding: 10px;
-  background-color: #ff6600;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s ease;
-}
-
-button:hover {
-  background-color: #e65c00;
-}
-
 @media (max-width: 576px) {
   .register-container {
     margin: 50px 20px;
