@@ -56,7 +56,7 @@ export const Register = () => {
             required
           />
         </div>
-        <button type="submit">Register</button>
+        <button type="submit" className="btn-primary">Register</button>
       </form>
     </div>
   );

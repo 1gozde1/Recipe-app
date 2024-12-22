@@ -1,6 +1,6 @@
 import { useForm, useFieldArray } from "react-hook-form";
 import { useRecipesDispatch, RECIPE_ACTIONS } from "../RecipesProvider";
-import { RECIPE_ACTIONS } from "../RecipesProvider";
+import { useState } from "react";
 import "./styles.css";
 
 export const NewRecipeForm = () => {
@@ -110,46 +110,48 @@ export const NewRecipeForm = () => {
         <div className="form-group">
           <label>Ingredients</label>
           {fields.map((field, index) => (
-            <div key={field.id} className="ingredient-item">
-              <input
-                {...register(`ingredients.${index}.ingredient`, {
-                  required: "Ingredient is required.",
-                })}
-                placeholder="Ingredient"
-              />
-              <input
-                type="text"
-                {...register(`ingredients.${index}.amount`, {
-                  required: "Amount is required.",
-                  pattern: {
-                    value: /^(\d+(\.\d+)?|\d+(\d+)?)/,
-                    message: "Please enter a valid amount.",
-                  },
-                })}
-                placeholder="Amount"
-              />
+            <div key={field.id}>
+              <div className="ingredient-item">
+                <input
+                  {...register(`ingredients.${index}.ingredient`, {
+                    required: "Ingredient is required.",
+                  })}
+                  placeholder="Ingredient"
+                />
+                <input
+                  type="text"
+                  {...register(`ingredients.${index}.amount`, {
+                    required: "Amount is required.",
+                    pattern: {
+                      value: /^(\d+(\.\d+)?|\d+(\d+)?)/,
+                      message: "Please enter a valid amount.",
+                    },
+                  })}
+                  placeholder="Amount"
+                />
+
+                <select {...register(`ingredients.${index}.measure`)}>
+                  <option value="">Measure</option>
+                  <option value="grams">Grams</option>
+                  <option value="liters">Liters</option>
+                  <option value="pieces">Pieces</option>
+                </select>
+                <button
+                  className="btn-primary"
+                  onClick={() => remove(index)}
+                >
+                  Remove
+                </button>
+              </div>
               {errors.ingredients?.[index]?.ingredient && (
                 <p className="error-message">
                   {errors.ingredients[index].ingredient.message}
                 </p>
               )}
-              <select {...register(`ingredients.${index}.measure`)}>
-                <option value="">Measure</option>
-                <option value="grams">Grams</option>
-                <option value="liters">Liters</option>
-                <option value="pieces">Pieces</option>
-              </select>
-              <button
-                type="button"
-                className="remove-button"
-                onClick={() => remove(index)}
-              >
-                Remove
-              </button>
             </div>
           ))}
           <button
-            className="add-button"
+            className="btn-primary"
             onClick={() => append({ ingredient: "", measure: "", amount: "" })}
           >
             Add Ingredient
@@ -174,9 +176,10 @@ export const NewRecipeForm = () => {
           <input
             id="strMealImage"
             {...register("strMealImage", {
+              required: "An image is required.",
               pattern: {
                 value:
-                  /^https:\/\/(?:www\.)?[-a-zA-Z0-9@:%._~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_.~#?&=]*)$/,
+                  /^https:\/\/(?:www\.)?[-a-zA-Z0-9@:%._~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_+.~#?&//=]*)$/,
                 message: "Please enter a valid URL for an image.",
               },
             })}
@@ -186,7 +189,7 @@ export const NewRecipeForm = () => {
           )}
         </div>
 
-        <button type="submit" className="submit-button">
+        <button type="submit" className="btn-primary">
           Submit
         </button>
         {successMessage && <p className="success-message">{successMessage}</p>}
