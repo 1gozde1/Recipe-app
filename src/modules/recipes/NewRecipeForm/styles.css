@@ -87,38 +87,6 @@ select:focus {
   outline: none; /* Varsayılan odak stilini kaldır */
 }
 
-button {
-  padding: 12px;
-  background-color: #ff6600;
-  color: white;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s ease, transform 0.2s ease,
-    box-shadow 0.2s ease;
-  margin-top: auto;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-button.remove-button,
-button.measure-button {
-  padding: 12px;
-  background-color: #ff6600;
-  color: white;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s ease, transform 0.2s ease,
-    box-shadow 0.2s ease;
-  margin-top: auto;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-button:hover {
-  background-color: #e65c00;
-  transform: translateY(-2px); /* Hover durumunda yukarı kaydırma efekti */
-}
-
 textarea {
   max-height: 200px; /* Yüksekliği sınırla */
   overflow-y: auto; /* Taşma durumunda kaydırma çubuğu göster */

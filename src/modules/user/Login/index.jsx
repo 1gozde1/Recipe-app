@@ -46,7 +46,7 @@ export const Login = () => {
             required
           />
         </div>
-        <button type="submit">Login</button>
+        <button type="submit" className="btn-primary">Login</button>
       </form>
       <div className="register-link-container">
         <p>
