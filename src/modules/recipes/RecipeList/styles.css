@@ -1,0 +1,37 @@
+ul {
+  list-style-type: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(250px, 1fr)
+  ); /* Kartları grid ile yerleştir */
+  gap: 20px;
+}
+
+li {
+  background-color: white;
+  border-radius: 12px;
+  padding: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Kart gölgesi */
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+li:hover {
+  transform: translateY(-5px); /* Hover efekti */
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+}
+
+li img {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+li h3 {
+  font-size: 1.25rem;
+  color: #343a40; /* Tarif adı rengi */
+  margin: 10px 0;
+}

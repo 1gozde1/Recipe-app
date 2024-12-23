@@ -1,35 +1,28 @@
-import { SearchBar } from './modules/recipes/search-bar';
-import { fetchRecipeDetailsById } from './modules/recipes/recipeService';
-import './App.css';
-import { RecipeList } from './modules/recipes/recipe-list/RecipeList';
-import { RecipeDetail } from './modules/recipes/recipe-detail/RecipeDetail.js'; 
-import { AppRouter } from './AppRouter.js';
-import { useState } from 'react';
+import { useState } from "react";
+import { UserProvider } from "./modules/user/UserContext";
+import { NavBar } from "./shared-components/NavBar";
+import { fetchRecipeDetailsById } from "./modules/recipes/recipeService";
+import { AppRouter } from "./AppRouter";
+import { useRecipes } from "./modules/recipes/RecipesProvider";
+import "./App.css";
 
-export const App = ({ recipes, onRecipeClick }) => {
-    const [selectedRecipe, setSelectedRecipe] = useState(null);
+export const App = () => {
+  const [selectedRecipe, setSelectedRecipe] = useState(null);
 
-    const handleRecipeClick = async (idMeal) => {
-        const details = await fetchRecipeDetailsById(idMeal);
-        setSelectedRecipe(details);
-    };
+  // recipe contextten tarifleri alıyoruz
+  const recipes = useRecipes();
 
-    return (
-        <div className='container'>
-            <header className='header'> Recipe Search App</header>
-            <AppRouter />
-            <SearchBar />
-            {recipes.length > 0 ? (
-                <RecipeList recipes={recipes} onRecipeClick={handleRecipeClick} />
-            ) : (
-                <></>
-            )}
-            {selectedRecipe && <RecipeDetail recipe={selectedRecipe} />} 
-        </div>
-    );
+  const handleRecipeClick = async (idMeal) => {
+    const details = await fetchRecipeDetailsById(idMeal);
+    setSelectedRecipe(details);
+  };
+
+  return (
+    <UserProvider>
+      <NavBar />
+      <div className="container">
+        <AppRouter />
+      </div>
+    </UserProvider>
+  );
 };
-
-
-
-
-

@@ -1,0 +1,54 @@
+.navbar {
+  background-color: #ffffff;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 1000; /* Navbar'ı her şeyin önüne çıkar */
+}
+
+.navbar__list {
+  display: flex;
+  justify-content: flex-end;
+  gap: 30px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Link ve buton için ortak stil */
+.navbar__list a,
+.navbar__list button {
+  display: inline-block;
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: color 0.3s ease;
+  padding: 15px;
+  font-size: 1.2rem;
+}
+
+.navbar__list a:hover,
+.navbar__list button:hover {
+  color: #ff6600;
+}
+
+/* Kullanıcı giriş yapmışsa görünen logout butonunun stili */
+.navbar__list button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+/* Mobil görünüm için stiller */
+@media (max-width: 768px) {
+  .navbar__list {
+    flex-direction: column; /* Mobilde linkleri dikey hizalar */
+    gap: 10px;
+    align-items: flex-start; /* Linkleri sola hizalar */
+  }
+
+  .navbar {
+    padding: 10px;
+  }
+}
