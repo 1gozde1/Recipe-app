@@ -9,6 +9,7 @@ import { BrowserRouter } from "react-router-dom";
 // RecipesProvider için initialState tanımlandı
 const initialRecipesState = {
   recipes: [],
+  isLoading: false,
 };
 
 const root = ReactDOM.createRoot(
@@ -24,6 +25,3 @@ root.render(
     </BrowserRouter>
   </React.StrictMode>
 );
-
-// Performans ölçümleme
-reportWebVitals();

@@ -1,36 +1,39 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { Recipe as ExpectedRecipe, Recipe } from "../models";
+import { fetchRecipesByIngredient } from "../api";
+
 import {
   useRecipes,
   useRecipesDispatch,
   RECIPE_ACTIONS,
 } from "../RecipesProvider";
-import { fetchRecipesByIngredient } from "../recipeService";
-
-// Recipe tipini tanımlıyoruz
-interface Recipe {
-  idMeal: string;
-  strMeal: string;
-  strMealThumb: string;
-}
 
 export const FeaturedRecipes: React.FC = () => {
-  // useRecipes ve useRecipesDispatch türlerini tanımlıyoruz
-  const recipes = useRecipes() as Recipe[]; // recipes'in bir Recipe listesi olduğunu belirtiyoruz
+  const recipes = useRecipes() as unknown as Recipe[];
   const dispatch = useRecipesDispatch() as React.Dispatch<{
     type: string;
     payload: Recipe[];
   }>;
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // fetchRecipesByIngredient fonksiyonunun doğru bir Recipe[] döndüğünü belirtiyoruz
-    fetchRecipesByIngredient("chicken_breast").then((recipes: Recipe[]) =>
-      dispatch({ type: RECIPE_ACTIONS.update, payload: recipes })
-    );
+    fetchRecipesByIngredient("chicken_breast").then((recipes: Recipe[]) => {
+      const mappedRecipes: Recipe[] = recipes.map((recipe) => ({
+        idMeal: recipe.idMeal,
+        strMeal: recipe.strMeal,
+        strMealThumb: recipe.strMealThumb,
+        strInstructions: recipe.strInstructions || "No instructions available",
+        ingredients: [],
+        strCategory: recipe.strCategory || "Unknown",
+        strArea: recipe.strArea || "Unknown",
+      }));
+      dispatch({ type: RECIPE_ACTIONS.UPDATE, payload: mappedRecipes });
+    });
   }, [dispatch]);
 
-  // handleRecipeClick fonksiyonuna idMeal'in tipini belirtiyoruz
   const handleRecipeClick = (idMeal: string): void => {
-    console.log("Recipe clicked:", idMeal);
+    navigate(`/recipe/${idMeal}`);
   };
 
   return (

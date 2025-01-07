@@ -1,13 +1,8 @@
-import { useState, ChangeEvent, FormEvent } from "react";
+import React, { useState, ChangeEvent, FormEvent } from "react";
 import "./styles.css";
-import { searchRecipesByName } from "../recipeService";
+import { fetchRecipeById } from "../api";
 import { RECIPE_ACTIONS, useRecipesDispatch } from "../RecipesProvider";
-
-interface Recipe {
-  idMeal: string;
-  strMeal: string;
-  strMealThumb: string;
-}
+import { Recipe } from "../models";
 
 export const SearchBar = () => {
   const [query, setQuery] = useState<string>(""); // query değişkeni string türünde olacak
@@ -19,10 +14,9 @@ export const SearchBar = () => {
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const recipes: Recipe[] = await searchRecipesByName(query);
-    dispatch({ TYPE: RECIPE_ACTIONS.refresh, payload: recipes });
+    const recipeDetail = await fetchRecipeById(query);
+    dispatch({ TYPE: RECIPE_ACTIONS.REFRESH, payload: [recipeDetail] });
   }
-  // TODO: Send request to search recipes
 
   return (
     <form onSubmit={handleSubmit} className="search-form">

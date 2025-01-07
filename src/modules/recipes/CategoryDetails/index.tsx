@@ -1,18 +1,13 @@
+import React from "react";
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { fetchRecipesByCategory } from "../api";
-
-// Recipe tipini tanımlıyoruz
-interface Recipe {
-  idMeal: string;
-  strMeal: string;
-  strMealThumb: string;
-}
+import { Recipe } from "../models";
 
 export const CategoryDetails: React.FC = () => {
   // useParams'tan dönen değerin tipini tanımlıyoruz
   const { category } = useParams<{ category: string }>();
-  
+
   // recipes için tip belirtiyoruz
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [loading, setLoading] = useState<boolean>(true);

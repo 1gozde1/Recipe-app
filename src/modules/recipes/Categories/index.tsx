@@ -1,13 +1,11 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { fetchCategories } from "../api";
+import { fetchRecipesByCategory } from "../api";
 
-// Category tipi 
-type Category = {
-  idCategory: string;
+interface Category {
   strCategory: string;
   strCategoryThumb: string;
-};
+}
 
 export const Categories = () => {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -17,8 +15,12 @@ export const Categories = () => {
   useEffect(() => {
     const getCategories = async () => {
       try {
-        const data = await fetchCategories();
-        setCategories(data);
+        const data = await fetchRecipesByCategory("All");
+        const categoriesData = data.map((recipe: any) => ({
+          strCategory: recipe.strCategory,
+          strCategoryThumb: recipe.strCategoryThumb || "",
+        }));
+        setCategories(categoriesData);
       } catch (err) {
         setError("Categories could not be reached");
       } finally {
@@ -37,7 +39,7 @@ export const Categories = () => {
       <h1>Food categories</h1>
       <ul>
         {categories.map((category) => (
-          <li key={category.idCategory}>
+          <li key={category.strCategory}>
             <Link to={`/recipes/category/${category.strCategory}`}>
               <img src={category.strCategoryThumb} alt={category.strCategory} />
               <h2>{category.strCategory}</h2>

@@ -1,67 +1,43 @@
+import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 import {
   useRecipes,
   useRecipesDispatch,
   RECIPE_ACTIONS,
 } from "../RecipesProvider";
-import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { fetchRecipesByCategory } from "../api";
+import { Recipe } from "../models";
 import "./styles.css";
-
-// API'den dönen öğe tiplerini tanımlıyoruz
-interface Recipe {
-  idMeal: string;
-  strMeal: string;
-  strMealThumb: string;
-}
 
 export const RecipeList = () => {
   const recipes = useRecipes();
-  const dispatch = useRecipesDispatch(); 
+  const dispatch = useRecipesDispatch();
 
   // useEffect ile sayfa yüklendiğinde API'den tarifleri çekecek
   useEffect(() => {
     const fetchRecipes = async () => {
       try {
-        const response = await fetch(
-          ("https://www.themealdb.com/api/json/v1/1/filter.php?c=Seafood"),
-        );
-        const data = await response.json();
-        
-
-        if (data.meals) {
-          dispatch({ type: RECIPE_ACTIONS.update, payload: data.meals });
-        }
+        const data = await fetchRecipesByCategory("Seafood");
+        dispatch({ type: RECIPE_ACTIONS.UPDATE, payload: data });
       } catch (error) {
         console.error("Failed to fetch recipes:", error);
       }
     };
 
-    fetchRecipes(); // API çağrısını başlatır
+    fetchRecipes();
   }, [dispatch]);
 
-  const handleRecipeClick = (idMeal: string): void => {
-    console.log("Recipe clicked:", idMeal);
-  };
-
   return (
-    <>
-      {recipes.length > 0 ? (
-        <ul className="recipe-list">
-          {recipes.map((recipe: Recipe) => (
-            <li
-              key={recipe.idMeal}
-              onClick={() => handleRecipeClick(recipe.idMeal)}
-            >
-              <Link to={`/recipes/${recipe.idMeal}`}>
-                <img src={recipe.strMealThumb} alt={recipe.strMeal} />
-                <h3>{recipe.strMeal}</h3>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p className="no-recipes">No recipes found</p>
-      )}
-    </>
+    <div>
+      {Array.isArray(recipes) &&
+        recipes.map((recipe: Recipe) => (
+          <div key={recipe.idMeal}>
+            <Link to={`/recipe/${recipe.idMeal}`}>
+              <img src={recipe.strMealThumb} alt={recipe.strMeal} />
+              <h3>{recipe.strMeal}</h3>
+            </Link>
+          </div>
+        ))}
+    </div>
   );
 };

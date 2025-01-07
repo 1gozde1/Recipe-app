@@ -1,22 +1,11 @@
+import React from "react";
 import { useForm, useFieldArray, SubmitHandler } from "react-hook-form";
 import { useRecipesDispatch } from "../RecipesProvider";
 import { RECIPE_ACTIONS } from "../RecipesProvider";
+import { FormData } from "../models";
+import { Recipe } from "../models";
+import { Categories, Areas } from "../models";
 import "./styles.css";
-
-interface Ingredient {
-  ingredient: string;
-  amount: string;
-  measure: string;
-}
-
-interface FormData {
-  strMeal: string;
-  strCategory: string;
-  strArea: string;
-  ingredients: Ingredient[];
-  strInstructions: string;
-  strMealImage: string;
-}
 
 export const NewRecipeForm = () => {
   const dispatch = useRecipesDispatch();
@@ -41,18 +30,9 @@ export const NewRecipeForm = () => {
     name: "ingredients",
   });
 
-  type Recipe = {
-    idMeal: string;
-    strMeal: string;
-    strCategory: string;
-    strArea: string;
-    strInstructions: string;
-    strMealThumb: string;
-    [key: string]: string | undefined; // Dinamik anahtarlar için(strIngredient+1 ve strMeasure+1 gibi)
-  };
-
   const onSubmit: SubmitHandler<FormData> = (data) => {
     const newRecipe: Recipe = {
+      ingredients: data.ingredients.map((item) => item.ingredient),
       idMeal: Date.now().toString(),
       strMeal: data.strMeal,
       strCategory: data.strCategory,
@@ -77,7 +57,7 @@ export const NewRecipeForm = () => {
       newRecipe[`strMeasure${i + 1}`] = "";
     }
 
-    dispatch({ type: RECIPE_ACTIONS.update, payload: [newRecipe] });
+    dispatch({ type: RECIPE_ACTIONS.UPDATE, payload: [newRecipe] });
     console.log("Form submitted:", newRecipe);
   };
 
@@ -105,9 +85,12 @@ export const NewRecipeForm = () => {
         <div className="form-group">
           <label htmlFor="strCategory">Select Category</label>
           <select id="strCategory" {...register("strCategory")}>
-            {categories.map((category) => (
-              <option key={category} value={category}>
-                {category}
+            {Categories.map((category) => (
+              <option
+                key={category as unknown as React.Key}
+                value={category as unknown as string}
+              >
+                {String(category)}
               </option>
             ))}
           </select>
@@ -116,7 +99,7 @@ export const NewRecipeForm = () => {
         <div className="form-group">
           <label htmlFor="strArea">Select Area</label>
           <select id="strArea" {...register("strArea")}>
-            {areas.map((area) => (
+            {Areas.map((area) => (
               <option key={area} value={area}>
                 {area}
               </option>
@@ -205,36 +188,3 @@ export const NewRecipeForm = () => {
     </div>
   );
 };
-
-const categories = [
-  "Beef",
-  "Chicken",
-  "Dessert",
-  "Lamb",
-  "Miscellaneous",
-  "Pasta",
-  "Pork",
-  "Seafood",
-  "Side",
-  "Starter",
-  "Vegan",
-  "Vegetarian",
-  "Breakfast",
-  "Goat",
-  "Other",
-];
-
-const areas = [
-  "Italian",
-  "Chinese",
-  "Mexican",
-  "Japanese",
-  "Indian",
-  "American",
-  "French",
-  "Mediterranean",
-  "Middle Eastern",
-  "Thai",
-  "Asian",
-  "Other",
-];
