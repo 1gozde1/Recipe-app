@@ -2,13 +2,13 @@ import "./styles.css";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { fetchRecipeById } from "../api";
-import { RecipeDetail } from "../models";
+import { Recipe } from "../models";
 import React from "react";
 
 export const RecipeDetails: React.FC = () => {
   // recipeId'yi URL parametrelerinden alıyoruz ve tipini belirliyoruz
   const { recipeId } = useParams<{ recipeId: string }>();
-  const [recipe, setRecipe] = useState<RecipeDetail | null>(null); // `recipe` state'ini tipliyoruz
+  const [recipe, setRecipe] = useState<Recipe | null>(null); // `recipe` state'ini tipliyoruz
   const [loading, setLoading] = useState<boolean>(true); // `loading` state'ini tipliyoruz
   const [error, setError] = useState<string | null>(null); // `error` state'ini tipliyoruz
 

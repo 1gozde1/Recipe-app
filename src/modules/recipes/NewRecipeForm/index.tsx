@@ -2,10 +2,22 @@ import React from "react";
 import { useForm, useFieldArray, SubmitHandler } from "react-hook-form";
 import { useRecipesDispatch } from "../RecipesProvider";
 import { RECIPE_ACTIONS } from "../RecipesProvider";
-import { FormData } from "../models";
 import { Recipe } from "../models";
 import { Categories, Areas } from "../models";
 import "./styles.css";
+
+export type FormData = {
+  strMeal: string;
+  strCategory: string;
+  strArea: string;
+  strInstructions: string;
+  strMealImage: string;
+  ingredients: {
+    ingredient: string;
+    measure: string;
+    amount: string;
+  }[];
+};
 
 export const NewRecipeForm = () => {
   const dispatch = useRecipesDispatch();

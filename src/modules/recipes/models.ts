@@ -1,50 +1,30 @@
-// Recipe için TypeScript türü
 export interface Recipe {
   idMeal: string;
   strMeal: string;
   strMealThumb: string;
   strCategory?: string;
   strArea?: string;
-  strInstructions?: string;
+  ingredients: string[];
+  strInstructions: string;
   strIngredient1?: string;
   strIngredient2?: string;
   strIngredient3?: string;
-  [key: string]: any; // Ek alanlar için
+  [key: `strIngredient${number}`]: string | undefined;
+  [key: `strMeasure${number}`]: string;
 }
 
-export type FormData = {
-  strMeal: string;
-  strCategory: string;
-  strArea: string;
-  strInstructions: string;
-  strMealImage: string;
-  ingredients: {
-    ingredient: string;
-    measure: string;
-    amount: string;
-  }[];
-};
-
-// RecipeDetail için TypeScript türü
-export interface RecipeDetail extends Recipe {
-  strInstructions: string;
-  ingredients: string[];
-}
-
-// ApiResponse için TypeScript türü
 export interface ApiResponse<T> {
   meals: T[] | null;
 }
 
-// Category için TypeScript türü
-export interface Category {
+export interface CategoryDetails {
   idCategory: string;
   strCategory: string;
   strCategoryThumb: string;
   strCategoryDescription: string;
 }
 
-export enum CategoryEnum {
+export enum Category {
   Beef = "Beef",
   Chicken = "Chicken",
   Dessert = "Dessert",
@@ -62,9 +42,9 @@ export enum CategoryEnum {
   Other = "Other",
 }
 
-export const Categories: CategoryEnum[] = Object.values(CategoryEnum);
+export const Categories: Category[] = Object.values(Category);
 
-export enum AreaEnum {
+export enum Area {
   Italian = "Italian",
   Chinese = "Chinese",
   Mexican = "Mexican",
@@ -79,4 +59,4 @@ export enum AreaEnum {
   Other = "Other",
 }
 
-export const Areas: AreaEnum[] = Object.values(AreaEnum);
+export const Areas: Area[] = Object.values(Area);

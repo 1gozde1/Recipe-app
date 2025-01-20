@@ -1,12 +1,12 @@
-import { Recipe, RecipeDetail, ApiResponse } from "./models";
+import { Recipe, ApiResponse } from "./models";
 import { fetchData } from "../../utils";
 
 const API_BASE_URL = "https://www.themealdb.com/api/json/v1/1";
 
 // fetchRecipeById fonksiyonu
-export const fetchRecipeById = async (id: string): Promise<RecipeDetail> => {
+export const fetchRecipeById = async (id: string): Promise<Recipe> => {
   const fullUrl = `${API_BASE_URL}/lookup.php?i=${id}`;
-  const data: ApiResponse<RecipeDetail> = await fetchData(fullUrl);
+  const data: ApiResponse<Recipe> = await fetchData(fullUrl);
 
   if (data.meals && data.meals.length > 0) {
     const recipe = data.meals[0];

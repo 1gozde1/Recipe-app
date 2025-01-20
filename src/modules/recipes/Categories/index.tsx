@@ -1,49 +1,47 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { fetchRecipesByCategory } from "../api";
+import { Recipe, CategoryDetails } from "../models";
 
-interface Category {
-  strCategory: string;
-  strCategoryThumb: string;
-}
-
-export const Categories = () => {
-  const [categories, setCategories] = useState<Category[]>([]);
+export const CategoryDetailsComponent: React.FC = () => {
+  const { category } = useParams<{ category: string }>();
+  const [categoryDetails, setCategoryDetails] = useState<CategoryDetails[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const getCategories = async () => {
+    const loadRecipes = async () => {
       try {
-        const data = await fetchRecipesByCategory("All");
-        const categoriesData = data.map((recipe: any) => ({
-          strCategory: recipe.strCategory,
-          strCategoryThumb: recipe.strCategoryThumb || "",
+        const data: Recipe[] = await fetchRecipesByCategory(category!);
+        const convertedData: CategoryDetails[] = data.map((recipe) => ({
+          idCategory: recipe.idMeal,
+          strCategory: recipe.strCategory as string,
+          strCategoryThumb: recipe.strMealThumb || "",
+          strCategoryDescription: "",
         }));
-        setCategories(categoriesData);
+        setCategoryDetails(convertedData);
       } catch (err) {
-        setError("Categories could not be reached");
+        setError("Recipes could not be reached");
       } finally {
         setLoading(false);
       }
     };
 
-    getCategories();
-  }, []);
+    loadRecipes();
+  }, [category]);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
 
   return (
-    <div className="categories">
-      <h1>Food categories</h1>
+    <div className="category-details">
+      <h1>Category: {category}</h1>
       <ul>
-        {categories.map((category) => (
-          <li key={category.strCategory}>
-            <Link to={`/recipes/category/${category.strCategory}`}>
-              <img src={category.strCategoryThumb} alt={category.strCategory} />
-              <h2>{category.strCategory}</h2>
-            </Link>
+        {categoryDetails.map((category) => (
+          <li key={category.idCategory}>
+            <h2>{category.strCategory}</h2>
+            <img src={category.strCategoryThumb} alt={category.strCategory} />
+            <p>{category.strCategoryDescription}</p>
           </li>
         ))}
       </ul>
