@@ -2,15 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import { App } from "./App";
-import reportWebVitals from "./reportWebVitals";
 import { RecipesProvider } from "./modules/recipes/RecipesProvider";
 import { BrowserRouter } from "react-router-dom";
-
-// RecipesProvider için initialState tanımlandı
-const initialRecipesState = {
-  recipes: [],
-  isLoading: false,
-};
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -19,7 +12,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <RecipesProvider initialState={initialRecipesState}>
+      <RecipesProvider>
         <App />
       </RecipesProvider>
     </BrowserRouter>

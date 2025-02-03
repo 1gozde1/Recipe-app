@@ -5,6 +5,7 @@ import { RECIPE_ACTIONS } from "../RecipesProvider";
 import { Recipe } from "../models";
 import { Categories, Areas } from "../models";
 import "./styles.css";
+import { useNavigate } from "react-router-dom";
 
 export type FormData = {
   strMeal: string;
@@ -21,6 +22,7 @@ export type FormData = {
 
 export const NewRecipeForm = () => {
   const dispatch = useRecipesDispatch();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -44,7 +46,6 @@ export const NewRecipeForm = () => {
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
     const newRecipe: Recipe = {
-      ingredients: data.ingredients.map((item) => item.ingredient),
       idMeal: Date.now().toString(),
       strMeal: data.strMeal,
       strCategory: data.strCategory,
@@ -103,14 +104,8 @@ export const NewRecipeForm = () => {
       }
     });
 
-    // Eğer 20'den az malzeme varsa, kalan alanları boş yapar
-    for (let i = data.ingredients.length; i < 20; i++) {
-      newRecipe[`strIngredient1`] = "";
-      newRecipe[`strMeasure1`] = "";
-    }
-
     dispatch({ type: RECIPE_ACTIONS.UPDATE, payload: [newRecipe] });
-    console.log("Form submitted:", newRecipe);
+    navigate("/");
   };
 
   return (
