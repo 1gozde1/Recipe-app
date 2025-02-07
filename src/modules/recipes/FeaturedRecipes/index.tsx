@@ -16,17 +16,37 @@ export const FeaturedRecipes: React.FC = () => {
   }>;
 
   useEffect(() => {
+    
     if (recipesState.recipes.length > 0) return;
+    
     fetchRecipesByIngredient("chicken_breast").then((recipes: Recipe[]) => {
-      const mappedRecipes: Recipe[] = recipes.map((recipe) => ({
-        ...recipe,
-        strInstructions: recipe.strInstructions || "No instructions available",
-        strCategory: recipe.strCategory || "Unknown",
-        strArea: recipe.strArea || "Unknown",
-      }));
-      dispatch({ type: RECIPE_ACTIONS.UPDATE, payload: mappedRecipes });
+      
+      dispatch({ type: RECIPE_ACTIONS.UPDATE, payload: recipes });
     });
   }, [dispatch, recipesState.recipes.length]);
 
-  return <RecipeList />;
+  const handleRecipeClick = (idMeal: string): void => {
+    navigate(`/recipe/${idMeal}`);
+  };
+
+  return (
+    <>
+      {recipesState.recipes.length > 0 ? (
+        <ul className="recipe-list">
+          {recipesState.recipes.map((recipe) => (
+            <li
+              key={recipe.idMeal}
+              onClick={() => handleRecipeClick(recipe.idMeal)}
+            >
+              <img src={recipe.strMealThumb} alt={recipe.strMeal} />
+              <h3>{recipe.strMeal}</h3>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p className="no-recipes">No recipes found</p>
+      )}
+    </>
+  );
 };
+
