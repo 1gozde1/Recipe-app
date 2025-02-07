@@ -1,7 +1,5 @@
-
 export async function fetchData(url, idMeal) {
   const response = await fetch(`${url}${idMeal}`);
-
   if (!response.ok) {
     throw Error(`An error occurred when fetching data from ${url}.`);
   }

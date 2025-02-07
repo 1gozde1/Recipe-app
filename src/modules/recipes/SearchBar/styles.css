@@ -19,3 +19,7 @@ input {
 }
 
 
+input:focus {
+    border-color: #495057; /* Odaklanıldığında koyu gri kenarlık */
+}
+

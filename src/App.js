@@ -1,16 +1,24 @@
 import { useState } from "react";
-import { UserProvider } from "./modules/user/UserContext";
+
+import { UserProvider } from "./Contexts/UserContext";
 import { NavBar } from "./shared-components/NavBar";
-import { fetchRecipeDetailsById } from "./modules/recipes/recipeService";
 import { AppRouter } from "./AppRouter";
+import { fetchRecipeById } from "./modules/recipes/recipeService";
+
 import "./App.css";
 
 export const App = ({ recipes }) => {
   const [selectedRecipe, setSelectedRecipe] = useState(null);
 
   const handleRecipeClick = async (idMeal) => {
-    const details = await fetchRecipeDetailsById(idMeal);
-    setSelectedRecipe(details);
+
+    try {
+      const details = await fetchRecipeById(idMeal);
+      setSelectedRecipe(details);
+    } catch (error) {
+      console.error("Failed to fetch recipe details:", error);
+    }
+
   };
 
   return (
