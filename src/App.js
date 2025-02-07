@@ -17,6 +17,7 @@ export const App = ({ recipes }) => {
     <UserProvider>
       <NavBar />
       <div className="container">
+
         <AppRouter
           recipes={recipes}
           handleRecipeClick={handleRecipeClick}

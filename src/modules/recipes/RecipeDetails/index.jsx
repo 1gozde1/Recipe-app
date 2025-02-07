@@ -12,6 +12,7 @@ export const RecipeDetails = () => {
   useEffect(() => {
     const getRecipe = async () => {
       try {
+        setLoading(true);
         const data = await fetchRecipeById(recipeId);
         setRecipe(data);
       } catch (err) {

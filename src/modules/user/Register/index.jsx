@@ -1,6 +1,8 @@
+
 import { useState } from 'react';
 import { useUser} from '../UserContext';
 import { useNavigate } from 'react-router-dom';
+
 import "./styles.css";
 
 export const Register = () => {
@@ -13,14 +15,16 @@ export const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Burada API çağrısı yapılacak ve kayıt işlemi gerçekleştirilecek
+      
       const userData = { userName, email, token: Date.now() }; //şifre saklanmıyor şifre token olarak görünüyor
+
       await login(userData); // Otomatik giriş yapılacak
       navigate("/"); // Ana sayfaya yönlendir
     } catch (error) {
       console.error("Registration failed:", error);
     }
-  }
+
+
 
 
 return (
@@ -62,4 +66,5 @@ return (
   </div>
 
 );
+
 };

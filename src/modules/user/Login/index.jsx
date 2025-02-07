@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../UserContext";
+
 import { Link } from 'react-router-dom';
+
 import "./styles.css";
 
 export const Login = () => {
@@ -46,6 +48,7 @@ export const Login = () => {
             required
           />
         </div>
+
         <button type="submit">Login</button>
       </form>
       <div className="register-link-container">
@@ -53,6 +56,7 @@ export const Login = () => {
     Don't have an account? <Link to="/register">Register here</Link>
   </p>
 </div>
+
 
     </div>
   );

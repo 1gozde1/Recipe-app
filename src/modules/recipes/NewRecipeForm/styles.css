@@ -1,0 +1,106 @@
+.form-container {
+  background-color: #f9f9f9;
+  max-width: 500px;
+  margin: 100px auto;
+  padding: 40px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group {
+  margin-bottom: 25px;
+}
+
+input,
+select,
+textarea {
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 16px;
+  width: 100%;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Giriş alanlarına odaklanıldığında kenar rengini değiştirme ve gölge ekleme */
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #ff6600; /* Odaklandığında kenar rengi */
+  box-shadow: 0 0 5px rgba(255, 102, 0, 0.5); /* Odaklandığında hafif gölge ekle */
+  outline: none; /* Varsayılan odak stilini kaldır */
+}
+
+.ingredient-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+input.ingredient-input,
+input.amount-input,
+select,
+button.remove-button,
+button.measure-button {
+  flex: 1; /* Alanların eşit büyümesini sağlar */
+  min-width: 102px;
+  padding: 8px;
+  font-size: 16px;
+
+  border-radius: 6px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Malzeme alanlarının aynı hizada olması */
+input.ingredient-input,
+input.amount-input,
+select,
+button.measure-button {
+  display: flex; /* Flexbox etkinleştir */
+  justify-content: space-between; /* Butonlar arasında eşit boşluk */
+  align-items: center; /* Dikey hizalama */
+  gap: 10px; /* Butonlar arasında boşluk */
+}
+
+button.remove-button {
+  max-width: 120px;
+}
+
+select {
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 16px;
+  width: 100%;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  background-color: #ffffff; /* Arka plan rengini beyaz yap */
+  border: 1px solid #ccc; /* Kenar rengi ekle */
+}
+
+select:focus {
+  border-color: #ff6600; /* Odaklandığında kenar rengi */
+  box-shadow: 0 0 5px rgba(255, 102, 0, 0.5); /* Odaklandığında hafif gölge ekle */
+  outline: none; /* Varsayılan odak stilini kaldır */
+}
+
+textarea {
+  max-height: 200px; /* Yüksekliği sınırla */
+  overflow-y: auto; /* Taşma durumunda kaydırma çubuğu göster */
+  resize: vertical; /* Kullanıcının yeniden boyutlandırmasına izin ver */
+}
+
+.error-message {
+  color: red;
+  font-size: 14px;
+}
+
+.success-message {
+  color: green;
+  font-size: 14px;
+  margin-top: 10px;
+  text-align: center;
+}

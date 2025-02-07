@@ -1,7 +1,9 @@
 
 
+
 .login-container {
   background-color: #ffffff; 
+
   max-width: 400px;
   margin: 100px auto;
   padding: 20px;
@@ -41,6 +43,7 @@ input {
   width: 100%;
 }
 
+
 button {
   padding: 10px;
   background-color: #ff6600; 
@@ -65,11 +68,13 @@ button:hover {
 
   h2 {
       font-size: 20px;
+
   }
-}
+
 
 .register-link-container {
   text-align: center;
+
   margin-top: 20px; 
   font-size: 14px;
   color: #333; 
@@ -84,4 +89,5 @@ button:hover {
 
 .register-link-container a:hover {
   color: #e65c00; 
+
 }

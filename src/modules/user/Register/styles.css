@@ -6,6 +6,7 @@
   padding: 20px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
   border-radius: 8px; 
+
 }
 
 .register-container h2 {
@@ -39,6 +40,7 @@ input {
   font-size: 16px;
   width: 100%;
 }
+
 
 button {
   padding: 10px;
