@@ -4,12 +4,15 @@ import { SearchBar } from "./modules/recipes/SearchBar";
 import { RecipeDetails } from "./modules/recipes/RecipeDetails";
 import { ProtectedRoute } from "./ProtectedRoute";
 import { CreateRecipe } from "./modules/recipes/CreateRecipe";
+
 import { Login } from "./modules/recipes/Login";
+
 
 export const AppRouter = ({ recipes, onRecipeClick }) => {
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
+
       <Route
         path="/user"
         element={
@@ -26,6 +29,7 @@ export const AppRouter = ({ recipes, onRecipeClick }) => {
           </ProtectedRoute>
         }
       />
+
 
       <Route path="/recipes">
         <Route
@@ -46,9 +50,11 @@ export const AppRouter = ({ recipes, onRecipeClick }) => {
             </ProtectedRoute>
           }
         />
+
       </Route>
 
       <Route path="/" element={<SearchBar />} />
+
       <Route path="*" element={<h1>Page not found</h1>} />
     </Routes>
   );

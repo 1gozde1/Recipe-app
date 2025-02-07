@@ -1,7 +1,9 @@
 // Bu dosyayı oluşturun
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
+
 import { fetchRecipesByCategory } from "../recipeService";
+
 import "./styles.css";
 
 export const CategoryDetails = () => {

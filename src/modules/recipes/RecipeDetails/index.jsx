@@ -1,7 +1,9 @@
 import "./styles.css";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+
 import { fetchRecipeById } from "../recipeService";
+
 
 export const RecipeDetails = () => {
   const { recipeId } = useParams();
@@ -12,6 +14,7 @@ export const RecipeDetails = () => {
   useEffect(() => {
     const getRecipe = async () => {
       try {
+
         const data = await fetchRecipeById(recipeId);
         setRecipe(data);
       } catch (err) {

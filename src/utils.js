@@ -6,10 +6,11 @@ export async function fetchData(url, idMeal) {
   return await response.json();
 }
 
-// Kimlik doğrulama ile ilgili fonksiyonlar
+
 export const isAuthenticated = () => {
   return localStorage.getItem("token") !== null;
 };
+
 
 export const login = () => {
   localStorage.setItem("token", "fake-token");

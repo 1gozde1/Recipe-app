@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+
 import { fetchCategories } from "../recipeService";
+
 import "./styles.css";
 
 export const Categories = () => {
@@ -32,7 +34,9 @@ export const Categories = () => {
       <ul>
         {categories.map((category) => (
           <li key={category.idCategory}>
+
             <Link to={`/categories/${category.strCategory}`}>
+
               <img src={category.strCategoryThumb} alt={category.strCategory} />
               <h2>{category.strCategory}</h2>
             </Link>

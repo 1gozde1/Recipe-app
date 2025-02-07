@@ -1,5 +1,7 @@
 import { Navigate } from "react-router-dom";
+
 import { useUser } from "./Contexts/UserContext";
+
 export const ProtectedRoute = ({ children }) => {
   const { user } = useUser(); // UserContext'ten user bilgisini alıyor
 

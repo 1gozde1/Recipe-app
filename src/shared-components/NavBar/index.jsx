@@ -1,5 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
+
 import { useUser } from "../../Contexts/UserContext";
+
 import "./styles.css";
 
 export const NavBar = () => {
@@ -20,6 +22,7 @@ export const NavBar = () => {
         <li>
           <Link to="/recipes/search">Search Recipes</Link>
         </li>
+
         <li>
           <Link to="/recipes/categories">Categories</Link>
         </li>
@@ -36,6 +39,7 @@ export const NavBar = () => {
             </li>
           </>
         )}
+
         {!user ? (
           <li>
             <Link to="/login">Log in</Link>
