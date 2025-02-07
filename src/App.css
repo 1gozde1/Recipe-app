@@ -1,14 +1,15 @@
 body {
   font-family: "Poppins", sans-serif;
-  background-color: #f8f9fa; /* Figma arka plan rengi */
+  background-color: #f8f9fa; 
   margin: 0;
   padding: 0;
 }
 
 .container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
+
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
 }
 
 @media (max-width: 768px) {
@@ -23,7 +24,7 @@ body {
 
 @media (max-width: 576px) {
   ul {
-    grid-template-columns: 1fr; /* küçük ekranda tek sütun yap */
+    grid-template-columns: 1fr; 
   }
 
   input {

@@ -38,4 +38,5 @@ a {
 .btn-primary:hover {
   background-color: #e65c00;
   transform: translateY(-2px); /* Hover durumunda yukarı kaydırma efekti */
+
 }

@@ -22,14 +22,21 @@ export const NavBar = () => {
         </li>
 
         <li>
-          <Link to="/recipes/new">Create New Recipe</Link>
+          <Link to="/recipes/categories">Categories</Link>
         </li>
-        <li>
-          <Link to="/user">Account</Link>
-        </li>
-        <li>
-          <Link to="/settings">Settings</Link>
-        </li>
+        {user && (
+          <>
+            <li>
+              <Link to="/recipes/create">Create New Recipe</Link>
+            </li>
+            <li>
+              <Link to="/user">Account</Link>
+            </li>
+            <li>
+              <Link to="/settings">Settings</Link>
+            </li>
+          </>
+        )}
 
         {!user ? (
           <li>
