@@ -1,40 +1,37 @@
-import React, { useState, useEffect } from 'react';
-import { SearchBar } from './modules/recipes/search-bar';
-import { fetchRecipesByIngredient, fetchRecipeDetailsById } from './modules/recipes/recipeService';
-import './App.css';
-import { RecipeList } from './modules/recipes/recipe-list/RecipeList';
-import { RecipeDetail } from './modules/recipes/recipe-detail/RecipeDetail.js'; 
+import { useState } from "react";
 
-export const App = () => {
-    const [recipes, setRecipes] = useState([]);
-    const [selectedRecipe, setSelectedRecipe] = useState(null); 
+import { UserProvider } from "./Contexts/UserContext";
+import { NavBar } from "./shared-components/NavBar";
+import { AppRouter } from "./AppRouter";
+import { fetchRecipeById } from "./modules/recipes/recipeService";
 
-    useEffect(() => {
-        fetchRecipesByIngredient('chicken_breast').then((recipes) =>
-            setRecipes(recipes.length > 0 ? recipes : []),
-        );
-    }, []);
+import "./App.css";
 
-    const handleRecipeClick = async (idMeal) => {
-        const details = await fetchRecipeDetailsById(idMeal);
-        setSelectedRecipe(details);
-    };
+export const App = ({ recipes }) => {
+  const [selectedRecipe, setSelectedRecipe] = useState(null);
 
-    return (
-        <div className='container'>
-            <header>Recipe Search App</header>
-            <SearchBar />
-            {recipes.length > 0 ? (
-                <RecipeList recipes={recipes} onRecipeClick={handleRecipeClick} />
-            ) : (
-                <></>
-            )}
-            {selectedRecipe && <RecipeDetail recipe={selectedRecipe} />} {/* Detaylı tarif bileşenini göster */}
-        </div>
-    );
+  const handleRecipeClick = async (idMeal) => {
+
+    try {
+      const details = await fetchRecipeById(idMeal);
+      setSelectedRecipe(details);
+    } catch (error) {
+      console.error("Failed to fetch recipe details:", error);
+    }
+
+  };
+
+  return (
+    <UserProvider>
+      <NavBar />
+      <div className="container">
+
+        <AppRouter
+          recipes={recipes}
+          handleRecipeClick={handleRecipeClick}
+          selectedRecipe={selectedRecipe}
+        />
+      </div>
+    </UserProvider>
+  );
 };
-
-
-
-
-

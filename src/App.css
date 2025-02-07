@@ -1,43 +1,35 @@
-
 body {
-    font-family: 'Poppins', sans-serif;
-    background-color: #f8f9fa; /* Figma arka plan rengi */
-    margin: 0;
-    padding: 0;
+  font-family: "Poppins", sans-serif;
+  background-color: #f8f9fa; 
+  margin: 0;
+  padding: 0;
 }
 
 .container {
+
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
 }
 
-header {
-    font-size: 2.5rem;
-    text-align: center;
-    color: #343a40; /* Figma başlık rengi */
-    margin-bottom: 40px;
-    font-weight: bold;
-}
-
 
 @media (max-width: 768px) {
-    .container {
-        padding: 10px;
-    }
+  .container {
+    padding: 10px;
+  }
 
-    header {
-        font-size: 2rem;
-    }
+  header {
+    font-size: 2rem;
+  }
 }
 
 @media (max-width: 576px) {
-    ul {
-        grid-template-columns: 1fr; /* küçük ekranda tek sütun yap */
-    }
+  ul {
+    grid-template-columns: 1fr; 
+  }
 
-    input {
-        width: 100%;
-        max-width: 100%;
-    }
+  input {
+    width: 100%;
+    max-width: 100%;
+  }
 }

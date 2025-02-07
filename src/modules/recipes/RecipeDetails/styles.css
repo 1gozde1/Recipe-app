@@ -1,4 +1,5 @@
 
+
 .recipe-detail {
     display: flex;
     flex-direction: column;
@@ -36,4 +37,4 @@
 .recipe-detail li {
     font-size: 1rem;
     color: #495057;
-}
+
