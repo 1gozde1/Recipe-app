@@ -1,11 +1,10 @@
-import React, { useState, ChangeEvent, FormEvent } from "react";
+import { useState, ChangeEvent, FormEvent } from "react";
 import "./styles.css";
-import { fetchRecipeById } from "../api";
-import { RECIPE_ACTIONS, useRecipesDispatch } from "../RecipesProvider";
-import { Recipe } from "../models";
+import { fetchRecipesByIngredient } from "../api";
+import { RECIPE_ACTIONS, useRecipesDispatch} from "../RecipesProvider";
 
 export const SearchBar = () => {
-  const [query, setQuery] = useState<string>(""); // query değişkeni string türünde olacak
+  const [query, setQuery] = useState<string>("");
   const dispatch = useRecipesDispatch();
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
@@ -14,8 +13,8 @@ export const SearchBar = () => {
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const recipeDetail = await fetchRecipeById(query);
-    dispatch({ TYPE: RECIPE_ACTIONS.REFRESH, payload: [recipeDetail] });
+    const recipes = await fetchRecipesByIngredient(query);
+      dispatch({ type: RECIPE_ACTIONS.REFRESH, payload: recipes });
   }
 
   return (

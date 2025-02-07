@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { Recipe as Recipe } from "../models";
+import { Recipe } from "../models";
 import { fetchRecipesByIngredient } from "../api";
 import {
   useRecipes,
   useRecipesDispatch,
   RECIPE_ACTIONS,
 } from "../RecipesProvider";
+import { RecipeList } from "../RecipeList";
 
 export const FeaturedRecipes: React.FC = () => {
   const recipesState = useRecipes();
@@ -14,13 +14,16 @@ export const FeaturedRecipes: React.FC = () => {
     type: string;
     payload: Recipe[];
   }>;
-  const navigate = useNavigate();
 
   useEffect(() => {
+    
+    if (recipesState.recipes.length > 0) return;
+    
     fetchRecipesByIngredient("chicken_breast").then((recipes: Recipe[]) => {
+      
       dispatch({ type: RECIPE_ACTIONS.UPDATE, payload: recipes });
     });
-  }, [dispatch]);
+  }, [dispatch, recipesState.recipes.length]);
 
   const handleRecipeClick = (idMeal: string): void => {
     navigate(`/recipe/${idMeal}`);
@@ -46,3 +49,4 @@ export const FeaturedRecipes: React.FC = () => {
     </>
   );
 };
+
