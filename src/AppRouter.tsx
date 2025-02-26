@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import { SearchBar } from "./modules/recipes/SearchBar";
 import { RecipeDetails } from "./modules/recipes/RecipeDetails";
-import { ProtectedRoute } from "./ProtectedRoute";
+import { ProtectedRoute } from "./modules/ProtectedRoute";
 import { NewRecipeForm } from "./modules/recipes/NewRecipeForm";
 import { Login } from "./modules/user/Login";
 import { RecipeList } from "./modules/recipes/RecipeList";
