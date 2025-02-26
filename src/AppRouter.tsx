@@ -8,6 +8,7 @@ import { RecipeList } from "./modules/recipes/RecipeList";
 import { CategoryDetails } from "./modules/recipes/CategoryDetails";
 import { Register } from "./modules/user/Register";
 import { FeaturedRecipes } from "./modules/recipes/FeaturedRecipes";
+import { RecipeList } from "./modules/recipes/RecipeList";
 
 export const AppRouter = () => {
   return (
@@ -57,10 +58,7 @@ export const AppRouter = () => {
       <Route
         path="/"
         element={
-          <>
-            <SearchBar />
-            <FeaturedRecipes />
-          </>
+          <FeaturedRecipes />
         }
       />
       <Route path="*" element={<h1>Page not found</h1>} />

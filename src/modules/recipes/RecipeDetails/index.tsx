@@ -13,13 +13,14 @@ export const RecipeDetails: React.FC = () => {
   const [error, setError] = useState<string | null>(null); // `error` state'ini tipliyoruz
 
   useEffect(() => {
-    const getRecipe = async () => {
-      if (!recipeId) {
-        setError("Recipe ID is missing");
-        setLoading(false);
-        return;
-      }
 
+    if (!recipeId) {
+      setError("Recipe ID is missing");
+      setLoading(false);
+      return;
+    }
+
+    const getRecipe = async () => {
       try {
         const data = await fetchRecipeById(recipeId); // `fetchRecipeById` fonksiyonunun `RecipeDetail` tipinde döneceğini varsayıyoruz
         setRecipe(data);
@@ -36,6 +37,19 @@ export const RecipeDetails: React.FC = () => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
 
+  const ingredientsAndMeasures = Object.entries(recipe || {}).reduce(
+    (acc: string[], [key, value]: [string, string]) => {
+      if (key.includes("strIngredient") && value) {
+        const ingredientNumber = key.replace("strIngredient", "");
+        const measure = (recipe as any)[`strMeasure${ingredientNumber}`];
+        acc.push(`${value} - ${measure}`);
+      }
+
+      return acc;
+    },
+    []
+  )
+
   return (
     <div>
       {recipe && (
@@ -44,7 +58,7 @@ export const RecipeDetails: React.FC = () => {
           <img src={recipe.strMealThumb} alt={recipe.strMeal} />
           <p>{recipe.strInstructions}</p>
           <ul>
-            {recipe.ingredients.map((ingredient: string, index: number) => (
+            {ingredientsAndMeasures.map((ingredient: string, index: number) => (
               <li key={index}>{ingredient}</li>
             ))}
           </ul>

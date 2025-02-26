@@ -31,7 +31,6 @@ export const RecipesDispatchContext = createContext<
 
 export const RecipesProvider: React.FC<RecipesProviderProps> = ({
   children,
-  initialState: initialRecipesState = initialState,
 }) => {
   const [state, dispatch] = useReducer(recipesReducer, initialState);
 
@@ -50,10 +49,11 @@ function recipesReducer(
 ): RecipesState {
   switch (action.type) {
     case RECIPE_ACTIONS.UPDATE: {
-      const updatedRecipes = state.recipes.map((recipe) =>
-        recipe.idMeal === action.payload.idMeal ? action.payload : recipe
-      );
-      return { ...state, recipes: updatedRecipes };
+      const newRecipes = action.payload.filter(
+				(payloadItem: Recipe) =>
+					!state.recipes.some((recipe: Recipe) => recipe.idMeal === payloadItem.idMeal)
+			);
+      return { ...state, recipes: [ ...newRecipes, ...state.recipes] };
     }
     case RECIPE_ACTIONS.REFRESH: {
       return { ...state, recipes: action.payload };
@@ -81,4 +81,4 @@ export const useRecipesDispatch = () => {
     throw new Error("useRecipesDispatch must be used within a RecipesProvider");
   }
   return context;
-};
+}

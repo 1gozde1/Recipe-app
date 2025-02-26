@@ -11,7 +11,6 @@ export interface Recipe {
   strImageSource?: string;
   strCreativeCommonsConfirmed?: string;
   dateModified?: string;
-  ingredients: string[];
   strInstructions: string;
   strIngredient1: string;
   strIngredient2: string;
